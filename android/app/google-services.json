@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "909172288991",
+    "project_id": "fir-app-13843",
+    "storage_bucket": "fir-app-13843.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909172288991:android:b7102ddcb44e193444a86a",
+        "android_client_info": {
+          "package_name": "com.app.EarthHaven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909172288991-6umta81k5tmc0fhq7akol3pcladlvk7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs_Pe-BQm_vcysxgMBcZH9ZKLiapc0ScI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909172288991-6har6dtblglvl6iutv212e1lhkmj1cuh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "909172288991-3aqpau9129qmf2ekuv3a5gnj4l46c4mq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.xfirebase.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
