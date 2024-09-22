@@ -6,7 +6,11 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:uuid/uuid.dart';
 
+import '../../data/models/chat_input_model.dart';
 import '../../domain/entities/chat_card_entity.dart';
+import '../manager/chat_cubit.dart';
+import '../widgets/chat_header.dart';
+import '../widgets/chat_theme.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key, required this.chatCardEntity});
@@ -54,58 +58,60 @@ class _ChatPageState extends State<ChatPage> {
 
   void _handleSendPressed(types.PartialText message) async {
     final messageId = const Uuid().v4();
-    final newMessage = {
-      'id': messageId,
-      'text': message.text,
-      'uid': _user.id,
-      'createdAt': DateTime.now().millisecondsSinceEpoch,
-    };
+    ChatInputModel chatInputModel = ChatInputModel(
+      messageId: messageId,
+      receiverId: receiverId,
+      message: {
+        'id': messageId,
+        'text': message.text,
+        'uid': _user.id,
+        'createdAt': DateTime.now().millisecondsSinceEpoch,
+      },
+    );
+    // ChatCubit.get(context).sendMessage(chatInputModel: chatInputModel);
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
         .collection('chats')
-        .doc(receiverId)
+        .doc(chatInputModel.receiverId)
         .collection('messages')
-        .doc(messageId)
-        .set(newMessage);
+        .doc(chatInputModel.messageId)
+        .set(chatInputModel.message);
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(receiverId)
+        .doc(chatInputModel.receiverId)
         .collection('chats')
         .doc(uId)
         .collection('messages')
-        .doc(messageId)
-        .set(newMessage);
+        .doc(chatInputModel.messageId)
+        .set(chatInputModel.message);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body:BackGround(widget:  Chat(
-        messages: _messages,
-        onSendPressed: _handleSendPressed,
-        user: _user,
-        showUserNames: true,showUserAvatars: false,
-        theme: DefaultChatTheme(
-          backgroundColor: Colors.transparent,
-          primaryColor:Colors.blueGrey.withOpacity(.3),
-          secondaryColor: Colors.blueGrey.withOpacity(.3),
-
-          inputTextColor: Colors.white,
-          inputTextCursorColor: Colors.green,
-          sentMessageBodyTextStyle: const TextStyle(color: Colors.white),
-          receivedMessageBodyTextStyle: const TextStyle(color: Colors.white),
-          inputContainerDecoration: BoxDecoration(
-            color:Colors.black,
-            borderRadius: BorderRadius.circular(30),
+          backgroundColor: Colors.black,
+          body: BackGround(
+    widget: SafeArea(
+      child: Column(
+        children: [
+          ChatHeader(chatCardEntity: widget.chatCardEntity),
+          Expanded(
+            child: Chat(
+              messages: _messages,
+              onSendPressed: _handleSendPressed,
+              user: _user,
+              showUserNames: true,
+              showUserAvatars: false,
+              scrollPhysics: const BouncingScrollPhysics(),
+              theme: customChatTheme(),
+            ),
           ),
-          inputBorderRadius: BorderRadius.circular(30),
-          inputMargin: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-
-        ),
-      ),),
-    );
+        ],
+      ),
+    ),
+          ),
+        );
   }
 }

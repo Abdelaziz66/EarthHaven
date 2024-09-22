@@ -1,9 +1,10 @@
 
 import '../../domain/entities/chat_card_entity.dart';
 
-sealed class ChatState {}
+abstract class ChatState {}
 
 final class ChatInitial extends ChatState {}
+
 class ChatCardLoadingState extends ChatState {}
 class ChatCardSuccessState extends ChatState {
   final List<ChatCardEntity> chatCardEntity;
@@ -14,3 +15,10 @@ class ChatCardErrorState extends ChatState {
   ChatCardErrorState(this.errMessage);
 }
 
+
+class SendMessageLoadingState extends ChatState {}
+class SendMessageSuccessState extends ChatState {}
+class SendMessageErrorState extends ChatState {
+  final String errMessage;
+  SendMessageErrorState(this.errMessage);
+}

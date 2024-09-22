@@ -31,12 +31,3 @@ class ChatCardModel extends ChatCardEntity {
   }
 }
 
-class ChatCardDataModel {
-  String? email;
-  String? password;
-
-  ChatCardDataModel({
-    this.email,
-    this.password,
-  });
-}
