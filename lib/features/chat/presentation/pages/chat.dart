@@ -1,3 +1,4 @@
+import 'package:earth_haven/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,8 +15,9 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChatCubit(
-        chatCardUseCase: ChatCardUseCase(chatCardRepo: getIt.get<ChatCardRepoImpl>()),
-
+        chatCardUseCase: ChatCardUseCase(chatRepo: getIt.get<ChatRepoImpl>()),
+        sendMessageUseCase:
+            SendMessageUseCase(chatRepo: getIt.get<ChatRepoImpl>()),
       )..getChatCard(),
       child: const ChatBody(),
     );

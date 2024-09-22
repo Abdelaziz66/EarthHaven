@@ -24,10 +24,12 @@ class PostRemoteDataSourceImpl extends PostRemoteDataSource {
         .listen((event) async {
       postEntity = _getPostList(event);
       PostSuccessState.set(postEntity: postEntity);
-    });
 
+    });
     return postEntity;
   }
+
+
 
   @override
   Future<void> uploadPost({required PostEntity postEntity}) async {
