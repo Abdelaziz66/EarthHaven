@@ -1,4 +1,5 @@
 import 'package:earth_haven/features/chat/data/repositories/chat_card_repo_impl.dart';
+import 'package:earth_haven/features/scan/data/data_sources/scan_plant_remote_data_source.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/chat/data/data_sources/chat_remote_data_source.dart';
@@ -8,6 +9,7 @@ import '../../features/news/data/data_sources/post_remote_data_source.dart';
 import '../../features/news/data/repositories/post_repo_impl.dart';
 import '../../features/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/register/data/repositories/register_repo_impl.dart';
+import '../../features/scan/data/repositories/scan_plant_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
@@ -26,4 +28,8 @@ void setupServiceLocator() {
  ChatRepoImpl(chatRemoteDataSource: ChatRemoteDataSourceImpl()) );
 
 
+  getIt.registerSingleton<ScanPlantRepoImpl>(
+      ScanPlantRepoImpl(scanPlantRemoteDataSource: ScanPlantRemoteDataSourceImpl())
+
+      );
 }

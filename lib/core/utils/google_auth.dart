@@ -15,7 +15,9 @@ abstract class AuthService{
     return await FirebaseAuth.instance.signInWithCredential(credential);
     }catch (onError){
       print('----------------');
+      print('----------------');
       print(onError.toString());
+      print('----------------');
       print('----------------');
 
 

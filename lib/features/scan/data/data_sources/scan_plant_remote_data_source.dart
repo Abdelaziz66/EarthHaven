@@ -1,48 +1,52 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uuid/uuid.dart';
-import '../../../../core/constants/constant.dart';
-import '../../../../core/functions/user_data.dart';
-import '../../domain/entities/checkPlant_card_entity.dart';
+import 'package:earth_haven/core/utils/api_service.dart';
+import '../../domain/entities/plant_entity.dart';
+import '../models/check_plant_input_model.dart';
+import '../models/plant_model.dart';
 
-import '../models/checkPlant_input_model.dart';
-
-
-abstract class CheckPlantRemoteDataSource {
-  Future<List<CheckPlantCardEntity>> getCheckPlantCard();
-  Future<void> checkPlant({required CheckPlantInputModel checkPlantInputModel});
-
+abstract class ScanPlantRemoteDataSource {
+  Future<PlantInfoEntity?> checkPlant(
+      {required CheckPlantInputModel checkPlantInputModel});
 }
 
-class CheckPlantRemoteDataSourceImpl extends CheckPlantRemoteDataSource {
+class ScanPlantRemoteDataSourceImpl extends ScanPlantRemoteDataSource {
   @override
-  Future<List<CheckPlantCardEntity>> getCheckPlantCard() async {
-    List<CheckPlantCardEntity> checkPlantCardEntity = [];
-    await FirebaseFirestore.instance.collection('users').get().then((value) async {
-      checkPlantCardEntity = await setUsersDataFunction(value: value);
-      return checkPlantCardEntity;
+  Future<PlantInfoEntity> checkPlant(
+      {required CheckPlantInputModel checkPlantInputModel}) async {
+    PlantInfoEntity? plantInfoEntity;
+    ApiService apiService = ApiService();
+    await apiService
+        .post(
+            endPoint:
+                'api/v3/identification?details=common_names,url,description,taxonomy,rank,gbif_id,inaturalist_id,image,synonyms,edible_parts,watering,best_light_condition,best_soil_type,common_uses,cultural_significance,toxicity,best_watering',
+            data: checkPlantInputModel.toMap())
+        .then((onValue) async {
+      plantInfoEntity = await setPlantDataFunction(value: onValue);
+      return plantInfoEntity;
     });
-
-    return checkPlantCardEntity;
+    return plantInfoEntity!;
   }
 
-  @override
-  Future<void> checkPlant({required CheckPlantInputModel checkPlantInputModel}) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .collection('checkPlants')
-        .doc(checkPlantInputModel.receiverId)
-        .collection('messages')
-        .doc(checkPlantInputModel.messageId)
-        .set(checkPlantInputModel.message);
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(checkPlantInputModel.receiverId)
-        .collection('checkPlants')
-        .doc(uId)
-        .collection('messages')
-        .doc(checkPlantInputModel.messageId)
-        .set(checkPlantInputModel.message);
+
+
+  Future<PlantInfoEntity> setPlantDataFunction({required dynamic value}) async {
+    PlantInfoModel plantInfoModel;
+    plantInfoModel = PlantInfoModel.fromJson(value.data);
+    final Suggestion? suggestions =
+    plantInfoModel.result?.classification?.suggestions![0];
+
+    PlantInfoEntity plantInfoEntity = PlantInfoEntity(
+      bestLightCondition: suggestions?.details?.bestLightCondition,
+      images: plantInfoModel.input?.images![0],
+      name: suggestions?.name,
+      probability: suggestions?.probability,
+      description: suggestions?.details?.description?.value,
+      bestSoilType: suggestions?.details?.bestSoilType,
+      commonUses: suggestions?.details?.commonUses,
+      bestWatering: suggestions?.details?.bestWatering,
+      culturalSignificance: suggestions?.details?.culturalSignificance,
+      toxicity: suggestions?.details?.toxicity,
+    );
+    return plantInfoEntity;
   }
 }

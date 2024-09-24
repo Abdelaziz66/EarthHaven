@@ -12,7 +12,7 @@ class PostImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
-        condition:  widget.postEntity.image !='' || widget.postEntity.image !=null,
+        condition:  widget.postEntity.image !='',
         builder: (context) => Padding(
           padding: const EdgeInsets.only(
               left: 0, right: 0.0, top: 5),

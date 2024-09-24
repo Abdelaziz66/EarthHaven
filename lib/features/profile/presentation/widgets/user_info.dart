@@ -123,10 +123,14 @@ class _ProfileImage extends StatelessWidget {
           spreadRadius: 2,
         ),
       ]),
-      child: const CircleAvatar(
+      child: CircleAvatar(
         radius: 45,
         backgroundImage:
-        NetworkImage('https://cacm.acm.org/wp-content/uploads/2012/06/051512_Feldgrau_Real-Time-Computer-Vision.jpg',),
+        NetworkImage(loginEntity?.profileImage==
+            ''
+            ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            : loginEntity?.profileImage ??
+            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',),
       ),
     );
   }

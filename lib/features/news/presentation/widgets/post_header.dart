@@ -1,6 +1,7 @@
 import 'package:earth_haven/features/news/presentation/widgets/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class PostHeader extends StatelessWidget {
   const PostHeader({
     super.key,
@@ -16,17 +17,17 @@ class PostHeader extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            decoration:
-            const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
               BoxShadow(
                 color: Colors.greenAccent,
                 blurRadius: 2,
                 spreadRadius: 2,
               ),
             ]),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 25,
-              // backgroundImage: NetworkImage('${image}'),
+              backgroundImage: NetworkImage(
+                  widget.postEntity.userProfileImage ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
             ),
           ),
           const SizedBox(
@@ -38,8 +39,8 @@ class PostHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(widget.postEntity.userName==null?'':
-                  widget.postEntity.userName!,
+                  Text(
+                    widget.postEntity.userName ?? '',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
@@ -56,8 +57,8 @@ class PostHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(widget.postEntity.date==null?
-              '': widget.postEntity.date!,
+              Text(
+                widget.postEntity.date ?? '',
                 style: const TextStyle(
                   // fontWeight: FontWeight.w800,
 

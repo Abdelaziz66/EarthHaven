@@ -30,7 +30,7 @@ class LayoutAppBar extends StatelessWidget {
                 onPressed: () {
                   GoRouter.of(context).push(AppRouter.kAddPostScreen);
                 },
-                icon: const Icon(Icons.post_add,color: Colors.white,),
+                icon: const Icon(Icons.add_photo_alternate_outlined,color: Colors.white,),
               ),
               IconButton(
                 onPressed: () {

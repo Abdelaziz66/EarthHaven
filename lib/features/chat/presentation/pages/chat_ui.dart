@@ -8,7 +8,6 @@ import 'package:uuid/uuid.dart';
 
 import '../../data/models/chat_input_model.dart';
 import '../../domain/entities/chat_card_entity.dart';
-import '../manager/chat_cubit.dart';
 import '../widgets/chat_header.dart';
 import '../widgets/chat_theme.dart';
 

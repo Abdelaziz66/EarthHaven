@@ -8,6 +8,9 @@ import '../../features/login/presentation/pages/login.dart';
 import '../../features/news/presentation/pages/add_post.dart';
 import '../../features/onboarding/presentation/pages/onboarding.dart';
 import '../../features/register/presentation/pages/register.dart';
+import '../../features/scan/data/models/plant_model.dart';
+import '../../features/scan/domain/entities/plant_entity.dart';
+import '../../features/scan/presentation/pages/plant_details.dart';
 import '../constants/constant.dart';
 
 abstract class AppRouter {
@@ -18,6 +21,7 @@ abstract class AppRouter {
   static const kLoginOrRegister = '/LoginOrRegister';
   static const kAddPostScreen = '/AddPostScreen';
   static const kChatPage = '/ChatPage';
+  static const kPlantDetails = '/PlantDetails';
 
   static final router = GoRouter(
     routes: [
@@ -57,6 +61,12 @@ abstract class AppRouter {
         path: kChatPage,
         builder: (context, state) => ChatPage(
           chatCardEntity: state.extra as ChatCardEntity, // Cast the extra parameter to the correct type
+        ),
+      ),
+      GoRoute(
+        path: kPlantDetails,
+        builder: (context, state) => PlantDetails(
+          plantInfoEntity: state.extra as PlantInfoEntity, // Cast the extra parameter to the correct type
         ),
       ),
     ],

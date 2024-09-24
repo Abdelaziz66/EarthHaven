@@ -1,31 +1,24 @@
 import 'package:dartz/dartz.dart';
-import 'package:earth_haven/features/checkPlant/data/models/checkPlant_input_model.dart';
-import 'package:earth_haven/features/checkPlant/domain/entities/checkPlant_card_entity.dart';
 import '../../../../core/errors/failure.dart';
-import '../../domain/repositories/checkPlant_repo.dart';
-import '../data_sources/checkPlant_remote_data_source.dart';
+import '../../domain/entities/plant_entity.dart';
+import '../../domain/repositories/scan_plant_repo.dart';
+import '../data_sources/scan_plant_remote_data_source.dart';
+import '../models/check_plant_input_model.dart';
+import '../models/plant_model.dart';
 
-class CheckPlantRepoImpl extends CheckPlantRepo{
- final CheckPlantRemoteDataSource checkPlantRemoteDataSource;
+
+class ScanPlantRepoImpl extends ScanPlantRepo{
+ final ScanPlantRemoteDataSource scanPlantRemoteDataSource;
 
 
- CheckPlantRepoImpl( {required this.checkPlantRemoteDataSource,});
-
-  @override
-  Future<Either<Failure, List<CheckPlantCardEntity>>> getCheckPlantCard() async {
-    try{
-      List<CheckPlantCardEntity> checkPlantCardEntity =await checkPlantRemoteDataSource.getCheckPlantCard();
-      return right(checkPlantCardEntity);
-    } catch (e) {
-      return left(ServerFailure(e.toString()));
-    }
-  }
+ ScanPlantRepoImpl( {required this.scanPlantRemoteDataSource,});
 
   @override
-  Future<Either<Failure, void>> checkPlant({required CheckPlantInputModel checkPlantInputModel})async {
+  Future<Either<Failure, PlantInfoEntity>> checkPlant({required CheckPlantInputModel checkPlantInputModel})async {
     try{
-     await checkPlantRemoteDataSource.checkPlant(checkPlantInputModel: checkPlantInputModel);
-      return right(null);
+      PlantInfoEntity? plantInfoEntity;
+      plantInfoEntity= await scanPlantRemoteDataSource.checkPlant(checkPlantInputModel: checkPlantInputModel);
+      return right(plantInfoEntity!);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

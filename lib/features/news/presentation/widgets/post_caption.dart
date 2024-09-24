@@ -12,7 +12,7 @@ class PostCaption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
-        condition: true,
+        condition:  widget.postEntity.caption != '',
         builder: (context) => Padding(
           padding:
           const EdgeInsets.symmetric(horizontal: 5.0),
@@ -20,8 +20,7 @@ class PostCaption extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  // 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.',
-                  widget.postEntity.caption==null?'':widget.postEntity.caption!,
+                widget.postEntity.caption??'',
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
