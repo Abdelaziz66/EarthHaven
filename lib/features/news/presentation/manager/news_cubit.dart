@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:earth_haven/core/functions/custom_snack_bar_message.dart';
 import 'package:earth_haven/features/news/domain/entities/post_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/constant.dart';
+import '../../../../core/errors/failure.dart';
 import '../../domain/use_cases/get_post_usecase.dart';
 import '../../domain/use_cases/upload_image_usecase.dart';
 import '../../domain/use_cases/upload_post_usecase.dart';
@@ -31,9 +33,36 @@ class NewsCubit extends Cubit<NewsState> {
       emit(PostErrorState(failure.toString()));
     }, (right) {
       // PostSuccessState.set(postEntity: right);
+      print(right);
+      print(right.length);
+      print(right.length);
+      print(right.length);
+      print(right.length);
+      print(right.length);
       emit(PostSuccessState());
     });
   }
+
+  // Future<Stream<List<PostEntity>>> getPostStream() async {
+  //   emit(PostLoadingState());
+  //   Stream<List<PostEntity>>? x;
+  //   var result = await getPostUseCase.call();
+  //   result.fold((failure) {
+  //     emit(PostErrorState(failure.toString()));
+  //   }, (right) {
+  //     // PostSuccessState.set(postEntity: right);
+  //     print(right);
+  //     print(right.length);
+  //     print(right.length);
+  //     print(right.length);
+  //     print(right.length);
+  //     print(right.length);
+  //     return right;
+  //     emit(PostSuccessState());
+  //   });
+  //   return x!;
+  //
+  // }
 
   void uploadPost({required String caption,String? tag}) async {
     emit(UploadPostLoadingState());
@@ -64,7 +93,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   Future<void> uploadPostWithImage(String caption, String? tag) async {
       var result = await uploadImageUseCase.call(postImage);
-    result.fold((failure) {}, (right) async {
+    result.fold((failure) {
+    }, (right) async {
       PostEntity postEntity = PostEntity(
           userName: loginEntity!.name,
           uId: uId,
@@ -89,6 +119,9 @@ class NewsCubit extends Cubit<NewsState> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       postImage = File(pickedFile.path);
+      emit(ImagePickedSuccessState(postImage:postImage));
+
+
     }
   }
 }

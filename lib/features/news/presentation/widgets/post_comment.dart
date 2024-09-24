@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../core/constants/constant.dart';
 class Comment extends StatelessWidget {
   const Comment({
     super.key,
@@ -13,11 +15,12 @@ class Comment extends StatelessWidget {
           color: Colors.blueGrey[900],
           boxShadow: const [
             BoxShadow(
-              color: Colors.white,
-              blurRadius: 1,
-              spreadRadius: .1,
+              color: Colors.white38,
+              blurRadius: 5,
+              spreadRadius: .5,
             ),
-          ]),
+          ]
+      ),
       child: Row(
         children: [
           Padding(
@@ -32,10 +35,13 @@ class Comment extends StatelessWidget {
                       spreadRadius: .1,
                     ),
                   ]),
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 radius: 18,
-                backgroundImage: NetworkImage(
-                  '',
+                backgroundImage: NetworkImage(loginEntity?.profileImage==
+                  ''
+                      ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                      : loginEntity?.profileImage ??
+                      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 ),
               ),
             ),
@@ -51,9 +57,9 @@ class Comment extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 label: Text(
-                  'Add Comment Here ..',
+                  'Add Comment here ..',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 12,
                     color: Colors.grey[300],
                   ),
                 ),

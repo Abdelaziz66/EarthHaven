@@ -14,9 +14,9 @@ class PostRepoImpl extends PostRepo {
   });
 
   @override
-  Future<Either<Failure, List<PostEntity>>> getPost() async {
+  Future<Either<Failure, Stream<List<PostEntity>>>> getPost() async {
     try {
-      List<PostEntity> postEntity = [];
+      Stream<List<PostEntity>> postEntity;
       postEntity = await postRemoteDataSource.getPost();
       print(postEntity.length);
       return right(postEntity);
@@ -39,9 +39,9 @@ class PostRepoImpl extends PostRepo {
   @override
   Future<Either<Failure, String>> uploadImage({required File postImage})async {
     try {
-      String? imageURL;
-      await postRemoteDataSource.uploadImage(postImage: postImage);
-      return right(imageURL!);
+      String imageURL;
+      imageURL= await postRemoteDataSource.uploadImage(postImage: postImage);
+      return right(imageURL);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

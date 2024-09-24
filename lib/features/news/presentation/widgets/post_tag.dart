@@ -12,7 +12,7 @@ class PostTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
-        condition: true,
+        condition: widget.postEntity.tag != '',
         builder: (context) => Padding(
           padding:
           const EdgeInsets.symmetric(horizontal: 5.0),
@@ -23,7 +23,7 @@ class PostTag extends StatelessWidget {
                 minWidth: 1,
                 padding: EdgeInsets.zero,
                 child:  Text(
-                  widget.postEntity.tag==null?'': widget.postEntity.tag!,
+                 widget.postEntity.tag??'',
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,

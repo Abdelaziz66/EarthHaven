@@ -1,9 +1,8 @@
-import 'package:earth_haven/features/news/domain/entities/post_entity.dart';
+import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:earth_haven/features/news/presentation/widgets/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../manager/news_cubit.dart';
 
 class PostListview extends StatefulWidget {
@@ -25,21 +24,111 @@ class _PostListviewState extends State<PostListview> {
         // }
       },
       builder: (context, state) {
-        if(PostSuccessState.postEntity.isNotEmpty ){
+        if (PostSuccessState.postEntity.isNotEmpty) {
           return Expanded(
             child: ListView.separated(
-                itemBuilder: (context, index) =>  PostItem(postEntity: PostSuccessState.postEntity[index]!,),
+                itemBuilder: (context, index) =>
+                    PostItem(
+                      postEntity: PostSuccessState.postEntity[index]!,
+                    ),
                 separatorBuilder: (context, index) =>
                 const SizedBox(
                   height: 5,
                 ),
                 itemCount: PostSuccessState.postEntity.length),
           );
-
-        }else{
-          return const Expanded(child: Center(child: CircularProgressIndicator()));
+        } else if (PostSuccessState.postEntity.isEmpty &&
+            state is PostLoadingState) {
+          return const Expanded(
+              child: Center(child: CircularProgressIndicator()));
+        } else {
+          return const Expanded(
+              child: Center(
+                  child: Text(
+                    'No posts here yet',
+                    style: Styles.textStyle16,
+                  )));
         }
       },
     );
   }
 }
+
+// class StreamPostListview extends StatelessWidget {
+//   const StreamPostListview({super.key});
+//
+//   @override
+//   Widget build(BuildContext context)  {
+//     return BlocBuilder<NewsCubit, NewsState>(
+//       builder: (context, state) {
+//         return StreamBuilder<List<PostEntity>>(
+//             stream:  NewsCubit.get(context).getPostStream(),
+//
+//
+//      // The stream of posts
+//     builder: (context,AsyncSnapshot<List<PostEntity>> snapshot) {
+//     if (snapshot.connectionState == ConnectionState.waiting) {
+//     return const Center(child: CircularProgressIndicator());
+//     } else if (snapshot.hasError) {
+//     return Center(child: Text('Error: ${snapshot.error}'));
+//     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//     return const Center(child: Text('No posts found'));
+//     }
+//
+//     // Access the list of PostEntity objects
+//     List<PostEntity> posts = snapshot.data!;
+//
+//     // Build the UI with the posts list
+//     return ListView.builder(
+//     itemCount: posts.length,
+//     itemBuilder: (context, index) {
+//     return ListTile(
+//     title: Text(
+//     posts[index].title), // Assuming PostEntity has a title field
+//     subtitle: Text(posts[index]
+//         .content), // Assuming PostEntity has a content field
+//     );
+//     },
+//     );
+//     },
+//     );
+//   }
+// }
+//
+// class PostsBuilder extends StatelessWidget {
+//   const PostsBuilder({
+//     required this.scaffoldKey,
+//     super.key});
+//   final GlobalKey<ScaffoldState> scaffoldKey;
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<PostCubit,PostState>(builder:(context,state){
+//       return StreamBuilder<QuerySnapshot>(
+//           stream: FirebaseFirestore.instance.collection('posts').orderBy('postDate', descending: false)
+//               .snapshots(),
+//           builder: (BuildContext context, snapshot) {
+//             if (snapshot.hasError) {
+//               return Text('Error: ${snapshot.error}');
+//             }
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return const Center(
+//                   child: CircularProgressIndicator()); // or any other loading indicator
+//             }
+//             if(snapshot.hasData){
+//               final List<QueryDocumentSnapshot>newData=snapshot.data!.docs;
+//               final List<PostModel>newList=[];
+//               for(var element in newData){
+//                 newList.add(PostModel.fromJson(element.data()as Map<String, dynamic>));
+//               }
+//               return PostsList(scaffoldKey: scaffoldKey, posts:newList);
+//             }
+//             if(state is GetPostsSuccessState){
+//               return PostsList(scaffoldKey: scaffoldKey, posts:PostCubit.get(context).allPostsList );
+//             }else if(state is GetPostsErrorState){
+//               return Text(state.errMessage);
+//             }else{
+//               return const Center(child: CircularProgressIndicator(),);
+//             }
+//           });
+//       });}
+// }}

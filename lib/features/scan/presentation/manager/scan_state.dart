@@ -1,29 +1,20 @@
+import '../../data/models/plant_model.dart';
+import '../../domain/entities/plant_entity.dart';
 
-abstract class ProfileState {}
+abstract class ScanState {}
 
-class ProfileInitial extends ProfileState {}
+class ScanInitial extends ScanState {}
 
-// class GetAddressLoadingState extends ProfileState {}
-//
-// class GetAddressSuccessState extends ProfileState {
-//   static List<AddressEntity> addressEntity = [];
-//   static set({required List<AddressEntity> addressEntity}) {
-//     GetAddressSuccessState.addressEntity = addressEntity;
-//   }
-// }
-//
-// class GetAddressErrorState extends ProfileState {
-//   final String errMessage;
-//
-//   GetAddressErrorState(this.errMessage);
-// }
-//
-// class UploadAddressLoadingState extends ProfileState {}
-//
-// class UploadAddressSuccessState extends ProfileState {}
-//
-// class UploadAddressErrorState extends ProfileState {
-//   final String errMessage;
-//
-//   UploadAddressErrorState(this.errMessage);
-// }
+class CheckPlantLoadingState extends ScanState {}
+
+class CheckPlantSuccessState extends ScanState {
+  final PlantInfoEntity plantInfoEntity;
+
+  CheckPlantSuccessState({required this.plantInfoEntity});
+}
+
+class CheckPlantErrorState extends ScanState {
+  final String errMessage;
+
+  CheckPlantErrorState(this.errMessage);
+}

@@ -44,11 +44,11 @@ class _PostItemState extends State<PostItem> {
                   PostTag(widget: widget),
                   PostImage(widget: widget),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   const PostAction(),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   const Comment(),
                 ],

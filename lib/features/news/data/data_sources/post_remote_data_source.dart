@@ -8,28 +8,41 @@ import '../../domain/entities/post_entity.dart';
 import '../models/post_model.dart';
 
 abstract class PostRemoteDataSource {
-  Future<List<PostEntity>> getPost();
+  Future<Stream<List<PostEntity>>> getPost();
   Future<void> uploadPost({required PostEntity postEntity});
   Future<String> uploadImage({required File postImage});
 }
 
 class PostRemoteDataSourceImpl extends PostRemoteDataSource {
+  // @override
+  // Future<Stream<List<PostEntity>>> getPost() async {
+  //   List<PostEntity> postEntity = [];
+  //   FirebaseFirestore.instance
+  //       .collection('posts')
+  //       .orderBy('date', descending: true)
+  //       .snapshots()
+  //       .listen((event) async {
+  //     postEntity = _getPostList(event);
+  //     PostSuccessState.set(postEntity: postEntity);
+  //   });
+  //   return postEntity;
+  // }
+
   @override
-  Future<List<PostEntity>> getPost() async {
+  Future<Stream<List<PostEntity>>> getPost() async {
     List<PostEntity> postEntity = [];
-    FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection('posts')
         .orderBy('date', descending: true)
         .snapshots()
-        .listen((event) async {
-      postEntity = _getPostList(event);
+        .map((snapshot) {
+      postEntity = _getPostList(snapshot);
       PostSuccessState.set(postEntity: postEntity);
 
+      // Convert the snapshot to a list of PostEntity
+      return postEntity;
     });
-    return postEntity;
   }
-
-
 
   @override
   Future<void> uploadPost({required PostEntity postEntity}) async {

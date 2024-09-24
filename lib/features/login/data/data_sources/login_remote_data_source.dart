@@ -29,12 +29,41 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
   @override
   Future<LoginEntity> googleLogin() async {
     LoginEntity? loginEntity;
+
     await AuthService.signInWithGoogle().then((onValue) async {
       User user = onValue.user;
       await newAccount(onValue, user);
       loginEntity = await getUserDataFunction(uid: onValue.user.uid);
+      print('----------------------------------------------------');
+      print('----------------------------------------------------');
+      print('----------------------------------------------------');
+
+      print(loginEntity?.name!);
+      print(loginEntity?.name!);
+      print(loginEntity?.name!);
+      print(loginEntity?.name!);
+      print(loginEntity?.name!);
+      print(loginEntity?.name!);
+      print('----------------------------------------------------');
+      print('----------------------------------------------------');
+      print('----------------------------------------------------');
+
       return loginEntity!;
     });
+    print('----------------------------------------------------');
+    print('----------------------------------------------------');
+    print('----------------------------------------------------');
+
+    print(loginEntity?.name!);
+    print(loginEntity?.name!);
+    print(loginEntity?.name!);
+    print(loginEntity?.name!);
+    print(loginEntity?.name!);
+    print(loginEntity?.name!);
+    print('----------------------------------------------------');
+    print('----------------------------------------------------');
+    print('----------------------------------------------------');
+
     return loginEntity!;
   }
 

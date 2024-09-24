@@ -1,15 +1,24 @@
+class PlantInfoEntity {
+  final String? images;
+  final String? name;
+  final double? probability;
+  final String? description;
+  final String? bestLightCondition;
+  final String? bestSoilType;
+  final String? commonUses;
+  final String? culturalSignificance;
+  final String? toxicity;
+  final String? bestWatering;
 
-
-class CheckPlantCardEntity{
- final String? email;
- final String? uid;
- final String? name;
- final String? phone;
- final String? profileImage;
- final String? bio;
-
-
-
- CheckPlantCardEntity( {required this.bio,required this.profileImage,required this.email,required this.uid, required this.name,required this.phone});
-
+  PlantInfoEntity(
+      {required this.images,
+        required  this.name,
+        required  this.probability,
+        required  this.description,
+        required  this.bestLightCondition,
+        required  this.bestSoilType,
+        required   this.commonUses,
+        required   this.culturalSignificance,
+        required   this.toxicity,
+        required  this.bestWatering});
 }

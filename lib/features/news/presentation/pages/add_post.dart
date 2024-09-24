@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:earth_haven/core/widgets/custom_text_form_field.dart';
 import 'package:earth_haven/features/news/domain/use_cases/upload_image_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +9,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/functions/setup_service_locator.dart';
 import '../../../../core/widgets/background.dart';
-import '../../../../core/widgets/glass_box.dart';
 import '../../data/repositories/post_repo_impl.dart';
 import '../../domain/use_cases/get_post_usecase.dart';
 import '../../domain/use_cases/upload_post_usecase.dart';
 import '../manager/news_cubit.dart';
+import '../widgets/add_post_widget/add_image_post.dart';
+import '../widgets/add_post_widget/custom_bar_add_post.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -38,7 +39,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
       ),
       child: BlocConsumer<NewsCubit, NewsState>(
         listener: (context, state) {
-          if(state is UploadPostSuccessState){
+          if (state is ImagePickedSuccessState) {
+            postImage = state.postImage;
+          }
+          if (state is UploadPostSuccessState) {
             GoRouter.of(context).pop();
           }
         },
@@ -50,56 +54,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios_new_outlined,
-                                color: Colors.white,
-                              )),
-                          const Spacer(),
-                          GlassBox(
-                            widget: InkWell(
-                              onTap: () {
-                                NewsCubit.get(context).uploadPost(
-                                  caption: captionController.text,
-                                  tag: tagsController.text,
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Post',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: Colors.greenAccent[400],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            color: Colors.transparent,
-                            borderRadius: 15,
-                            x: 40,
-                            y: 40,
-                            border: false,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ConditionalBuilder(
-                      condition: state is UploadPostSuccessState,
-                      builder: (context) => const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: LinearProgressIndicator(),
-                      ),
-                      fallback: (context) => const SizedBox(),
-                    ),
+                    CustomBar(captionController: captionController, tagsController: tagsController, state: state,),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
@@ -127,233 +82,39 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               ),
                             ),
                             const SizedBox(
-                              height: 8,
+                              height: 25,
                             ),
-                            Container(
-                              color: Colors.blueGrey,
-                              width: double.infinity,
-                              height: .3,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: CustomTextFormField(
+                                  controller: captionController,
+                                  keyboardType: TextInputType.text,
+                                  hintText: 'Caption',
+                                  prefixIcon: FontAwesomeIcons.pen,
+                                  obscureText: false,
+                                  suffix: const SizedBox(),
+                                  borderRadius: 20),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: CustomTextFormField(
+                                  controller: tagsController,
+                                  keyboardType: TextInputType.text,
+                                  hintText: 'Tags',
+                                  prefixIcon: FontAwesomeIcons.tag,
+                                  obscureText: false,
+                                  suffix: const SizedBox(),
+                                  borderRadius: 20),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: GlassBox(
-                                widget: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          color: Colors.white.withOpacity(.8),
-                                          style: BorderStyle.solid,
-                                          width: 1.5)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: SizedBox(
-                                                  height: 30,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        captionController,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    style: TextStyle(
-                                                      color: Colors.grey[300],
-                                                    ),
-                                                    decoration: InputDecoration(
-                                                      suffixText: 'Description',
-                                                      suffixStyle: TextStyle(
-                                                        color: Colors.grey[300],
-                                                      ),
-                                                      border: InputBorder.none,
-                                                      label: Text(
-                                                        '',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Colors.grey[300],
-                                                        ),
-                                                      ),
-                                                      prefixIcon: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .keyboard,
-                                                        size: 25,
-                                                        color: Colors.grey[200],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                color: Colors.blueGrey.withOpacity(.3),
-                                borderRadius: 20,
-                                x: 50,
-                                y: 50,
-                                border: false,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: GlassBox(
-                                widget: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          color: Colors.white.withOpacity(.8),
-                                          style: BorderStyle.solid,
-                                          width: 1.5)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: SizedBox(
-                                                  height: 30,
-                                                  child: TextFormField(
-                                                    controller: tagsController,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    style: TextStyle(
-                                                      color: Colors.grey[300],
-                                                    ),
-                                                    decoration: InputDecoration(
-                                                      suffixText: 'Hashtags',
-                                                      suffixStyle: TextStyle(
-                                                        color: Colors.grey[300],
-                                                      ),
-                                                      label: Text(
-                                                        '',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Colors.grey[300],
-                                                        ),
-                                                      ),
-                                                      prefixIcon: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .hashtag,
-                                                        size: 25,
-                                                        color: Colors.grey[200],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                color: Colors.blueGrey.withOpacity(.3),
-                                borderRadius: 20,
-                                x: 50,
-                                y: 50,
-                                border: false,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ConditionalBuilder(
-                              condition: state is UploadPostLoadingState,
-                              builder: (context) => const Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: LinearProgressIndicator(),
-                              ),
-                              fallback: (context) => const SizedBox(),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: GlassBox(
-                                widget: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          color: Colors.white.withOpacity(.8),
-                                          style: BorderStyle.solid,
-                                          width: 1.5)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: Stack(
-                                      alignment: Alignment.bottomRight,
-                                      children: [
-                                        ConditionalBuilder(
-                                          condition: postImage == null,
-                                          builder: (context) => Container(
-                                            width: double.infinity,
-                                            height: 200,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.blueGrey,
-                                            ),
-                                          ),
-                                          fallback: (context) => Container(
-                                            width: double.infinity,
-                                            height: 200,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.blueGrey,
-                                              image: DecorationImage(
-                                                image: FileImage(postImage!),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.greenAccent[400],
-                                              ),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    NewsCubit.get(context).pickImage();
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.camera_alt,
-                                                    color: Colors.grey[300],
-                                                  ))),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                color: Colors.blueGrey.withOpacity(.3),
-                                borderRadius: 20,
-                                x: 50,
-                                y: 50,
-                                border: false,
-                              ),
-                            ),
+                            AddImagePost(postImage: postImage, state: state,),
                           ],
                         ),
                       ),
@@ -368,3 +129,4 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 }
+

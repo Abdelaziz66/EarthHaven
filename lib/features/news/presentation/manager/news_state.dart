@@ -26,9 +26,15 @@ class UploadPostErrorState extends NewsState {
 
 
 class UploadImageLoadingState extends NewsState {}
-class UploadImageSuccessState extends NewsState {
-}
+class UploadImageSuccessState extends NewsState {}
 class UploadImageErrorState extends NewsState {
   final String errMessage;
   UploadImageErrorState(this.errMessage);
+}
+
+class ImagePickedSuccessState extends NewsState {
+  final  File? postImage;
+
+  ImagePickedSuccessState({required this.postImage});
+
 }
