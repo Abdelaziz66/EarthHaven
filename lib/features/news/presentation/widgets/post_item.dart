@@ -50,7 +50,7 @@ class _PostItemState extends State<PostItem> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Comment(),
+                   Comment(postEntity: widget.postEntity,),
                 ],
               ),
             ),

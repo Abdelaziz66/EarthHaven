@@ -7,6 +7,10 @@ import 'package:earth_haven/features/news/domain/use_cases/upload_post_usecase.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import '../../../chat/data/repositories/chat_card_repo_impl.dart';
+import '../../../chat/domain/use_cases/get_chat_card_usecase.dart';
+import '../../../chat/domain/use_cases/send_message_usecase.dart';
+import '../../../chat/presentation/manager/chat_cubit.dart';
 import '../../domain/repositories/post_repo.dart';
 import '../../domain/use_cases/upload_image_usecase.dart';
 import '../manager/news_cubit.dart';
@@ -18,14 +22,23 @@ class News extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewsCubit(
-        getPostUseCase: GetPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
-        uploadPostUseCase:
-        UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
-        uploadImageUseCase:
-        UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
-      )..getPost(),
-      child: const NewsBody(),
+      create: (context) {
+        return ChatCubit(
+          chatCardUseCase: ChatCardUseCase(chatRepo: getIt.get<ChatRepoImpl>()),
+          sendMessageUseCase:
+              SendMessageUseCase(chatRepo: getIt.get<ChatRepoImpl>()),
+        );
+      },
+      child: BlocProvider(
+        create: (context) => NewsCubit(
+          getPostUseCase: GetPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
+          uploadPostUseCase:
+              UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
+          uploadImageUseCase:
+              UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
+        )..getPost(),
+        child: const NewsBody(),
+      ),
     );
   }
 }

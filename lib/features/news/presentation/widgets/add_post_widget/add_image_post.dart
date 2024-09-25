@@ -47,7 +47,7 @@ class AddImagePost extends StatelessWidget {
               fallback: (context) => const SizedBox(),
             ),
             ConditionalBuilder(
-              condition: state is! UploadPostLoadingState,
+              condition: state is! UploadImageLoadingState,
               builder: (context) => Row(
                 crossAxisAlignment:
                 CrossAxisAlignment.end,
@@ -93,7 +93,7 @@ class AddImagePost extends StatelessWidget {
               fallback: (context) => const SizedBox(),
             ),
             ConditionalBuilder(
-              condition: state is UploadPostLoadingState,
+              condition: state is UploadImageLoadingState,
               builder: (context) => GlassBox(
                   widget: SizedBox(
                     height: 200,
