@@ -17,19 +17,23 @@ class PostHeader extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
-              BoxShadow(
-                color: Colors.greenAccent,
-                blurRadius: 2,
-                spreadRadius: 2,
-              ),
-            ]),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(
-                  widget.postEntity.userProfileImage ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
-            ),
-          ),
+              decoration:
+                  const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                BoxShadow(
+                  color: Colors.greenAccent,
+                  blurRadius: 2,
+                  spreadRadius: 2,
+                ),
+              ]),
+              child: CircleAvatar(
+                radius: 25,
+                backgroundImage: NetworkImage(
+                  widget.postEntity.userProfileImage == '' ||
+                          widget.postEntity.userProfileImage == null
+                      ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                      : widget.postEntity.userProfileImage!,
+                ),
+              )),
           const SizedBox(
             width: 15,
           ),
@@ -39,26 +43,23 @@ class PostHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    widget.postEntity.userName ?? '',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 18,
-                      color: Colors.grey[200],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: Text(
+                      widget.postEntity.userName ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18,
+                        color: Colors.grey[200],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  const Icon(
-                    Icons.verified,
-                    size: 18,
-                    color: Colors.blue,
                   ),
                 ],
               ),
               Text(
-                widget.postEntity.date ?? '',
+                '${DateTime.parse(widget.postEntity.date!).day}/${DateTime.parse(widget.postEntity.date!).month} at ${DateTime.parse(widget.postEntity.date!).hour}:${DateTime.parse(widget.postEntity.date!).minute}',
                 style: const TextStyle(
                   // fontWeight: FontWeight.w800,
 

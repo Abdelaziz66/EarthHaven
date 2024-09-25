@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/style/colors.dart';
 import '../../../../../core/widgets/glass_box.dart';
 import '../../manager/news_cubit.dart';
@@ -97,14 +98,12 @@ class AddImagePost extends StatelessWidget {
               builder: (context) => GlassBox(
                   widget: SizedBox(
                     height: 200,
+                    width: double.infinity,
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(
-                          vertical: 97.5,
-                          horizontal: 50),
-                      child: LinearProgressIndicator(
-                        borderRadius:
-                        BorderRadius.circular(20),
+                      padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: KColors.thirdColor,
+                        size: 80,
                       ),
                     ),
                   ),

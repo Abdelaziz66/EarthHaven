@@ -3,6 +3,7 @@ import 'package:earth_haven/core/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../../../../core/style/colors.dart';
 import '../../../../core/style/textStyles.dart';
@@ -31,10 +32,10 @@ class _RegisterBodyState extends State<RegisterBody> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          showSnackBar(message: 'Register Successful', context: context);
+          showFloatingTopBanner(message: 'Register Successful :)', context: context);
         }
         if (state is RegisterErrorState) {
-          showSnackBar(message: 'Register Failed', context: context);
+          showFloatingTopBanner(message: 'Register Failed :(', context: context);
         }
       },
       builder: (context, state) {
@@ -132,7 +133,10 @@ class _RegisterBodyState extends State<RegisterBody> {
                             height: 15,
                           ),
                           state is RegisterLoadingState
-                              ? const CircularProgressIndicator()
+                              ?   LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 70,
+        )
                               : CustomButton(
                                   onTap: () {
                                     _clickOnRegister(cubit);

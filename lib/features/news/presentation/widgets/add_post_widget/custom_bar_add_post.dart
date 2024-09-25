@@ -3,6 +3,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../../core/widgets/glass_box.dart';
 import '../../manager/news_cubit.dart';
@@ -44,10 +45,13 @@ class CustomBar extends StatelessWidget {
               },
               child:    ConditionalBuilder(
                 condition: state is UploadPostLoadingState,
-                builder: (context) => const SizedBox(
+                builder: (context) =>  SizedBox(
                     height: 25,
                     width: 25,
-                    child: CircularProgressIndicator()),
+                    child:  LoadingAnimationWidget.dotsTriangle(
+          color: Colors.white,
+          size: 30,
+        )),
                 fallback: (context) =>const Padding(
                   padding: EdgeInsets.all(5.0),
                   child: Text(
