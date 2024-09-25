@@ -1,7 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:earth_haven/features/news/presentation/widgets/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../manager/news_cubit.dart';
 
@@ -18,7 +20,6 @@ class _PostListviewState extends State<PostListview> {
     return BlocConsumer<NewsCubit, NewsState>(
       listener: (context, state) {
         // if(state is PostSuccessState){
-        //   showSnackBar(context: context, message: 'PostSuccessState');
         //   // postEntity=PostSuccessState.postEntity;
         //   print(PostSuccessState.postEntity.length);
         // }
@@ -26,21 +27,26 @@ class _PostListviewState extends State<PostListview> {
       builder: (context, state) {
         if (PostSuccessState.postEntity.isNotEmpty) {
           return Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) =>
-                    PostItem(
-                      postEntity: PostSuccessState.postEntity[index]!,
-                    ),
-                separatorBuilder: (context, index) =>
-                const SizedBox(
-                  height: 5,
-                ),
-                itemCount: PostSuccessState.postEntity.length),
+            child: FadeInUp(
+              child: ListView.separated(
+                  itemBuilder: (context, index) =>
+                      PostItem(
+                        postEntity: PostSuccessState.postEntity[index]!,
+                      ),
+                  separatorBuilder: (context, index) =>
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  itemCount: PostSuccessState.postEntity.length),
+            ),
           );
         } else if (PostSuccessState.postEntity.isEmpty &&
             state is PostLoadingState) {
-          return const Expanded(
-              child: Center(child: CircularProgressIndicator()));
+          return  Expanded(
+              child: Center(child:  LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 70,
+        )));
         } else {
           return const Expanded(
               child: Center(
@@ -68,7 +74,10 @@ class _PostListviewState extends State<PostListview> {
 //      // The stream of posts
 //     builder: (context,AsyncSnapshot<List<PostEntity>> snapshot) {
 //     if (snapshot.connectionState == ConnectionState.waiting) {
-//     return const Center(child: CircularProgressIndicator());
+//     return const Center(child:  LoadingAnimationWidget.staggeredDotsWave(
+//           color: Colors.white,
+//           size: 70,
+//         ));
 //     } else if (snapshot.hasError) {
 //     return Center(child: Text('Error: ${snapshot.error}'));
 //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -112,7 +121,10 @@ class _PostListviewState extends State<PostListview> {
 //             }
 //             if (snapshot.connectionState == ConnectionState.waiting) {
 //               return const Center(
-//                   child: CircularProgressIndicator()); // or any other loading indicator
+//                   child:  LoadingAnimationWidget.staggeredDotsWave(
+//           color: Colors.white,
+//           size: 70,
+//         )); // or any other loading indicator
 //             }
 //             if(snapshot.hasData){
 //               final List<QueryDocumentSnapshot>newData=snapshot.data!.docs;
@@ -127,7 +139,10 @@ class _PostListviewState extends State<PostListview> {
 //             }else if(state is GetPostsErrorState){
 //               return Text(state.errMessage);
 //             }else{
-//               return const Center(child: CircularProgressIndicator(),);
+//               return const Center(child:  LoadingAnimationWidget.staggeredDotsWave(
+//           color: Colors.white,
+//           size: 70,
+//         ),);
 //             }
 //           });
 //       });}

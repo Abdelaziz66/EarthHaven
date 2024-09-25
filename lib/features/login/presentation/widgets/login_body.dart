@@ -3,6 +3,7 @@ import 'package:earth_haven/features/login/presentation/widgets/sign_with_google
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../../../../core/functions/login_success.dart';
 import '../../../../core/style/colors.dart';
@@ -31,11 +32,11 @@ class _LoginBodyState extends State<LoginBody> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          showSnackBar(message: 'Login Success', context: context);
+          showFloatingTopBanner(message: 'Login Success :)', context: context);
         loginSuccess(state, context);
         }
         if (state is LoginErrorState) {
-          showSnackBar(message: 'Login Failed', context: context);
+          showSnackBar(message: 'Login Failed :(', context: context);
         }
       },
       builder: (context, state) {
@@ -109,7 +110,10 @@ class _LoginBodyState extends State<LoginBody> {
                           height: 15,
                         ),
                         state is LoginLoadingState
-                            ? const CircularProgressIndicator()
+                            ?   LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 70,
+        )
                             : CustomButton(
                                 onTap: () {
                                   _clickOnLogin(cubit);
@@ -129,7 +133,10 @@ class _LoginBodyState extends State<LoginBody> {
                           height: 15,
                         ),
                         state is LoginWithGoogleLoadingState
-                            ? const CircularProgressIndicator()
+                            ?   LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 70,
+        )
                             :    const SignWithGoogle(),
                 
                         const SizedBox(

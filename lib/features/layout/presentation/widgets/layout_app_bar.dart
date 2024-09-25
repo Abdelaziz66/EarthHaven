@@ -34,7 +34,7 @@ class LayoutAppBar extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  showSnackBar(message: 'coming soon :)', context: context);
+                  showFloatingTopBanner(context: context, message: 'Coming Soon :)');
 
                 },
                 icon: const Icon(Icons.notifications,color: Colors.white,),

@@ -1,7 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:earth_haven/core/functions/custom_snack_bar_message.dart';
 import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../domain/entities/chat_card_entity.dart';
 import '../manager/chat_cubit.dart';
@@ -24,26 +26,30 @@ class _ChatCardListviewState extends State<ChatCardListview> {
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
         if(state is ChatCardSuccessState){
-          showSnackBar(context: context, message: 'get card');
           chatCardEntity=state.chatCardEntity;
         }
       },
       builder: (context, state) {
        if(chatCardEntity.isNotEmpty){
           return Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.separated(
-                  itemBuilder: (context, index) =>  ChatCardItem(chatCardEntity: chatCardEntity[index],),
-                  separatorBuilder: (context, index) =>
-                  const SizedBox(
-                    height: 0,
+              child: FadeInUp(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>  ChatCardItem(chatCardEntity: chatCardEntity[index],),
+                    separatorBuilder: (context, index) =>
+                    const SizedBox(
+                      height: 0,
+                    ),
+                    itemCount: chatCardEntity.length,
                   ),
-                  itemCount: chatCardEntity.length,
                 ),
               ));
-        }else if(state is ChatCardLoadingState || chatCardEntity.isEmpty){
-        return const Expanded(child: Center(child: CircularProgressIndicator()));
+        }else if(state is ChatCardLoadingState || chatCardEntity.isEmpty ){
+        return Expanded(child: Center(child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 70,
+        ),));
         }
         else{
         return const Expanded(child: Center(child: Text('No chats here yet',style: Styles.textStyle16,)));

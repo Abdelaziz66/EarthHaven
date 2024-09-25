@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../../../../core/functions/setup_service_locator.dart';
 import '../../../../core/widgets/background.dart';
 import '../../data/repositories/post_repo_impl.dart';
@@ -43,6 +44,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
             postImage = state.postImage;
           }
           if (state is UploadPostSuccessState) {
+            showFloatingTopBanner(message: 'Post added :)', context: context);
+
             GoRouter.of(context).pop();
           }
         },
