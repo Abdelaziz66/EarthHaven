@@ -7,6 +7,8 @@ import '../../features/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/login/data/repositories/login_repo_impl.dart';
 import '../../features/news/data/data_sources/post_remote_data_source.dart';
 import '../../features/news/data/repositories/post_repo_impl.dart';
+import '../../features/profile/data/data_sources/profile_remote_data_source.dart';
+import '../../features/profile/data/repositories/profile_repo_impl.dart';
 import '../../features/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/register/data/repositories/register_repo_impl.dart';
 import '../../features/scan/data/repositories/scan_plant_repo_impl.dart';
@@ -32,4 +34,10 @@ void setupServiceLocator() {
       ScanPlantRepoImpl(scanPlantRemoteDataSource: ScanPlantRemoteDataSourceImpl())
 
       );
+
+  getIt.registerSingleton<ProfileRepoImpl>(
+      ProfileRepoImpl(
+          profileRemoteDataSource: ProfileRemoteDataSourceImpl())
+
+  );
 }

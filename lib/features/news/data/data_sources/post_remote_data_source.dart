@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:earth_haven/features/news/presentation/manager/news_cubit.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/constants/constant.dart';
 import '../../domain/entities/post_entity.dart';
 import '../models/post_model.dart';
@@ -46,18 +47,23 @@ class PostRemoteDataSourceImpl extends PostRemoteDataSource {
 
   @override
   Future<void> uploadPost({required PostEntity postEntity}) async {
+    final postId = const Uuid().v4();
     PostModel postModel = PostModel(
         userName: postEntity.userName,
         uId: uId,
         caption: postEntity.caption,
         tag: postEntity.tag,
-        postId: postEntity.postId,
+        postId: postId,
         userProfileImage: postEntity.userProfileImage,
         date: postEntity.date,
         image: postEntity.image);
     await FirebaseFirestore.instance
-        .collection('posts')
-        .add(postModel.toMap())
+        .collection('posts').doc(postId)
+        .set(postModel.toMap())
+        .then((value) {});
+    await FirebaseFirestore.instance
+        .collection('users').doc(uId).collection('posts').doc(postId)
+        .set(postModel.toMap())
         .then((value) {});
   }
 

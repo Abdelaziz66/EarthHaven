@@ -1,29 +1,18 @@
 
+import '../../../news/domain/entities/post_entity.dart';
+
 abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
+class PostLoadingState extends ProfileState {}
+class PostSuccessState extends ProfileState {
+  static List<PostEntity?> postEntity=[];
 
-// class GetAddressLoadingState extends ProfileState {}
-//
-// class GetAddressSuccessState extends ProfileState {
-//   static List<AddressEntity> addressEntity = [];
-//   static set({required List<AddressEntity> addressEntity}) {
-//     GetAddressSuccessState.addressEntity = addressEntity;
-//   }
-// }
-//
-// class GetAddressErrorState extends ProfileState {
-//   final String errMessage;
-//
-//   GetAddressErrorState(this.errMessage);
-// }
-//
-// class UploadAddressLoadingState extends ProfileState {}
-//
-// class UploadAddressSuccessState extends ProfileState {}
-//
-// class UploadAddressErrorState extends ProfileState {
-//   final String errMessage;
-//
-//   UploadAddressErrorState(this.errMessage);
-// }
+  static set({required List<PostEntity?> postEntity}) {
+    PostSuccessState.postEntity = postEntity;
+  }
+}
+class PostErrorState extends ProfileState {
+  final String errMessage;
+  PostErrorState(this.errMessage);
+}
