@@ -1,5 +1,7 @@
 
+import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:earth_haven/features/profile/presentation/widgets/user_info.dart';
+import 'package:earth_haven/features/profile/presentation/widgets/user_posts_listview.dart';
 import 'package:earth_haven/features/profile/presentation/widgets/verify_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,45 +17,41 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileCubit(),
-      child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {
-
-        },
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            key: profileScaffoldKey,
-            body: Column(
+     return Scaffold(
+      backgroundColor: Colors.transparent,
+      key: profileScaffoldKey,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const UserInfo(),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
               children: [
-                const UserInfo(),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: [
-                      CustomProfileButton(
-                        text: 'Edit Profile',
-                        function: () {
-                        },
-                      ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      CustomProfileButton(
-                        text: 'Logout',
-                        function: () {
-                          clickOnLogout(context);
-                        },
-                      ),
-                    ],
-                  ),
+                CustomProfileButton(
+                  text: 'Edit Profile',
+                  function: () {
+                  },
                 ),
-                const VerifyAccount(),
+                const SizedBox(
+                  width: 7,
+                ),
+                CustomProfileButton(
+                  text: 'Logout',
+                  function: () {
+                    clickOnLogout(context);
+                  },
+                ),
               ],
             ),
-          );
-        },
+          ),
+          const VerifyAccount(),
+          const Padding(
+            padding: EdgeInsets.only(left: 20.0,top: 10),
+            child: Text('Your Posts Here!',style: Styles.textStyle16,),
+          ),
+          const UserPostListview(),
+        ],
       ),
     );
   }
