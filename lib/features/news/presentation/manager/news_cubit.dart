@@ -92,7 +92,9 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   Future<void> uploadPostWithImage(String caption, String? tag) async {
-      var result = await uploadImageUseCase.call(postImage);
+    emit(UploadImageLoadingState());
+
+    var result = await uploadImageUseCase.call(postImage);
     result.fold((failure) {
     }, (right) async {
       PostEntity postEntity = PostEntity(
@@ -104,6 +106,7 @@ class NewsCubit extends Cubit<NewsState> {
           postId: '',
           userProfileImage: loginEntity!.profileImage,
           date:  DateTime.now().toString(),);
+      emit(UploadPostLoadingState());
       var uploadPostResult = await uploadPostUseCase.call(postEntity);
       uploadPostResult.fold((failure) {
         emit(UploadPostErrorState(failure.toString()));
@@ -120,8 +123,6 @@ class NewsCubit extends Cubit<NewsState> {
     if (pickedFile != null) {
       postImage = File(pickedFile.path);
       emit(ImagePickedSuccessState(postImage:postImage));
-
-
     }
   }
 }
