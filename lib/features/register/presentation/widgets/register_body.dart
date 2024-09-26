@@ -63,8 +63,8 @@ class _RegisterBodyState extends State<RegisterBody> {
                             height: 5,
                           ),
                           Text(
-                            'Welcome to Food app!',
-                            style: Styles.textStyle30
+                            'Welcome to EarthHaven!',
+                            style: Styles.textStyle25
                                 .copyWith(color: Colors.white70),
                           ),
                           const SizedBox(

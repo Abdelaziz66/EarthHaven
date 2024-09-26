@@ -29,6 +29,7 @@ class _PostListviewState extends State<PostListview> {
           return Expanded(
             child: FadeInUp(
               child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) =>
                       PostItem(
                         postEntity: PostSuccessState.postEntity[index]!,

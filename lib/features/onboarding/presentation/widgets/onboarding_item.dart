@@ -53,6 +53,7 @@ class _SubTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Text(
         subTitle,
+        maxLines: 2,
         textAlign: TextAlign.center,
         style: Styles.onboardingSubTitle,
       ),

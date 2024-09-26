@@ -1,4 +1,5 @@
 import 'package:earth_haven/features/profile/presentation/manager/profile_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/use_cases/get_profile_usecase.dart';
@@ -24,4 +25,5 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(PostSuccessState());
     });
   }
+
 }

@@ -1,37 +1,40 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/constant.dart';
 import '../../../../core/style/textStyles.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({
-    super.key,
+    super.key,required this.postsNumber,
   });
+ final int? postsNumber;
+
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              _ProfileImage(),
-              SizedBox(
+              const _ProfileImage(),
+              const SizedBox(
                 width: 15,
               ),
-              _ProfileDetails(),
+              _ProfileDetails(postsNumber:postsNumber),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Name(),
+          const Name(),
         ],
       ),
     );
@@ -44,64 +47,76 @@ class UserInfo extends StatelessWidget {
 
 
 class _ProfileDetails extends StatelessWidget {
-  const _ProfileDetails();
+  const _ProfileDetails({required this.postsNumber});
+ final int? postsNumber;
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
+    return  Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '21',
-                style: Styles.textStyle18Bold
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Text(
-                'Posts',
-                style: Styles.textStyle16
-              ),
-            ],
+          FadeInRight(
+            delay: const Duration(milliseconds: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                    '${postsNumber ?? '0'}',
+                  style: Styles.textStyle18Bold
+                ),
+                const SizedBox(
+                  height: 7,
+                ),
+                const Text(
+                  'Posts',
+                  style: Styles.textStyle16
+                ),
+              ],
+            ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '289',
-                style: Styles.textStyle18Bold
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Text(
-                'Followers',
-                style: Styles.textStyle16
-              ),
-            ],
+          FadeInRight(
+            delay: const Duration(milliseconds: 150),
+
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '289',
+                  style: Styles.textStyle18Bold
+                ),
+                SizedBox(
+                  height: 7,
+                ),
+                Text(
+                  'Followers',
+                  style: Styles.textStyle16
+                ),
+              ],
+            ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '371',
-                style: Styles.textStyle18Bold
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Text(
-                'Following',
-                style: Styles.textStyle16
-              ),
-            ],
+          FadeInRight(
+            delay: const Duration(milliseconds: 300),
+
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '371',
+                  style: Styles.textStyle18Bold
+                ),
+                SizedBox(
+                  height: 7,
+                ),
+                Text(
+                  'Following',
+                  style: Styles.textStyle16
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -156,8 +171,8 @@ class Name extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            Text(loginEntity!.email!,
-                style: Styles.textStyle16black),
+            Text(loginEntity!.bio!,
+                style: Styles.textStyle16),
           ],
         ),
       ),

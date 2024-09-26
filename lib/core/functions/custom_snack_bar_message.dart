@@ -100,3 +100,39 @@ void showFloatingTopBanner({required BuildContext context, required String messa
     overlayEntry.remove();
   });
 }
+
+void showFloatingTopBannerWidget({required BuildContext context, required Widget widget}) {
+  final overlay = Overlay.of(context);
+  final overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: 40, // Position it from the top
+      left: 10,
+      right: 10,
+      child: FadeInDown(
+        duration: const Duration(milliseconds: 300),
+        child: Material(
+          color: Colors.transparent,
+          child: GlassBox(
+            widget: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: widget,
+            ),
+            color: Colors.white38,
+            borderRadius: 20,
+            x: 50,
+            y: 15,
+            border: false,
+          ),
+        ),
+      ),
+    ),
+  );
+
+  // Insert the overlay entry
+  overlay.insert(overlayEntry);
+
+  // Automatically remove the banner after a delay
+  Future.delayed(const Duration(seconds: 2), () {
+    overlayEntry.remove();
+  });
+}

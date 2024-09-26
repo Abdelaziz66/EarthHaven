@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,15 +10,18 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/style/colors.dart';
 import '../../../../../core/widgets/glass_box.dart';
 import '../../manager/news_cubit.dart';
+import 'custom_bar_add_post.dart';
 
 class AddImagePost extends StatelessWidget {
   const AddImagePost({
     super.key,
-    required this.postImage,required this.state,
+    required this.postImage,required this.state, required this.captionController, required this.tagsController,
   });
 
   final File? postImage;
   final NewsState? state;
+  final TextEditingController captionController;
+  final TextEditingController tagsController;
 
 
   @override
@@ -51,44 +55,56 @@ class AddImagePost extends StatelessWidget {
               condition: state is! UploadImageLoadingState,
               builder: (context) => Row(
                 crossAxisAlignment:
-                CrossAxisAlignment.end,
+                CrossAxisAlignment.center,
                 mainAxisAlignment:
                 MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: KColors.primaryColor,
-                        ),
-                        child: IconButton(
-                            onPressed: () {
-                              NewsCubit.get(context)
-                                  .pickImage();
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.image,
-                              color: Colors.grey[300],
-                            ))),
+                  FadeInLeft(
+                    delay: const Duration(milliseconds: 400),
+
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: KColors.primaryColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () {
+                                NewsCubit.get(context)
+                                    .pickImage();
+                              },
+                              icon: FaIcon(
+                                FontAwesomeIcons.image,
+                                color: Colors.grey[300],
+                              ))),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: KColors.primaryColor,
-                        ),
-                        child: IconButton(
-                            onPressed: () {
-                              NewsCubit.get(context)
-                                  .pickImage();
-                            },
-                            icon: Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey[300],
-                            ))),
+                  FadeInLeft(
+                    delay: Duration(milliseconds: 200),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: KColors.primaryColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () {
+                                NewsCubit.get(context)
+                                    .pickImage();
+                              },
+                              icon: Icon(
+                                Icons.camera_alt,
+                                color: Colors.grey[300],
+                              ))),
+                    ),
                   ),
+                  FadeInLeft(child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CustomBar(captionController: captionController, tagsController: tagsController, state: state,),
+                  )),
                 ],
               ),
               fallback: (context) => const SizedBox(),
@@ -112,7 +128,7 @@ class AddImagePost extends StatelessWidget {
                   x: 3,
                   y: 3,
                   border: false),
-
+    
               fallback: (context) => const SizedBox(),
             ),
           ],

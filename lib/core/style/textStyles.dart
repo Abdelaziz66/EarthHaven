@@ -73,16 +73,16 @@ abstract class Styles {
 
   );
   static const onboardingTitle = TextStyle(
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: FontWeight.w800,
     color: Colors.white,
 
   );
   static const onboardingSubTitle = TextStyle(
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
     height: 1.3,
-    color: Colors.white,
+    color: Colors.white70,
 
 
   );
