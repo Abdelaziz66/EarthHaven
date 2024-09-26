@@ -1,5 +1,6 @@
 
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,41 +19,45 @@ class SelectedButtons extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  ScanCubit.get(context).pickImage(
-                      imageSource: ImageSource.gallery);
-                },
-                child: const GlassBox(
-                    widget: Center(
-                      child: Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.center,
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.image,
-                            color: Colors.white70,
-                            size: 35,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'Gallery',
-                            style: Styles.textStyle18,
-                          ),
-                        ],
+            child: FadeInDown(
+              delay: const Duration(milliseconds: 500),
+
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    ScanCubit.get(context).pickImage(
+                        imageSource: ImageSource.gallery);
+                  },
+                  child: const GlassBox(
+                      widget: Center(
+                        child: Row(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.image,
+                              color: Colors.white70,
+                              size: 35,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              'Gallery',
+                              style: Styles.textStyle18,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    color: Colors.white10,
-                    borderRadius: 20,
-                    x: 0,
-                    y: 0,
-                    border: true),
+                      color: Colors.white10,
+                      borderRadius: 20,
+                      x: 0,
+                      y: 0,
+                      border: true),
+                ),
               ),
             ),
           ),
@@ -60,41 +65,44 @@ class SelectedButtons extends StatelessWidget {
             width: 20,
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  ScanCubit.get(context).pickImage(
-                      imageSource: ImageSource.camera);
-                },
-                child: const GlassBox(
-                    widget: Center(
-                      child: Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.center,
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.camera,
-                            color: Colors.white70,
-                            size: 35,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'Camera',
-                            style: Styles.textStyle18,
-                          ),
-                        ],
+            child: FadeInDown(
+              delay: const Duration(milliseconds: 300),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    ScanCubit.get(context).pickImage(
+                        imageSource: ImageSource.camera);
+                  },
+                  child: const GlassBox(
+                      widget: Center(
+                        child: Row(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.camera,
+                              color: Colors.white70,
+                              size: 35,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              'Camera',
+                              style: Styles.textStyle18,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    color: Colors.white10,
-                    borderRadius: 20,
-                    x: 0,
-                    y: 0,
-                    border: true),
+                      color: Colors.white10,
+                      borderRadius: 20,
+                      x: 0,
+                      y: 0,
+                      border: true),
+                ),
               ),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:earth_haven/core/style/textStyles.dart';
 import 'package:earth_haven/features/profile/presentation/widgets/user_posts.dart';
+import 'package:earth_haven/features/profile/presentation/widgets/verify_account.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -23,6 +25,11 @@ class _UserPostListviewState extends State<UserPostListview> {
       listener: (context, state) {
         if(state is PostSuccessState){}
         postEntity=PostSuccessState.postEntity;
+        if(FirebaseAuth.instance.currentUser?.emailVerified ==
+            true){
+          verifyNotify(context);
+        }
+
       },
       builder: (context, state) {
         if (postEntity.isNotEmpty) {

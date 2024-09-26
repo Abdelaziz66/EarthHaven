@@ -16,7 +16,9 @@ class GetReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElasticInDown(
+    return FadeInDown(
+      delay: const Duration(milliseconds: 0),
+
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: InkWell(

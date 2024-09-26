@@ -10,7 +10,6 @@ import '../manager/chat_cubit.dart';
 import '../manager/chat_state.dart';
 import 'chat_card_item.dart';
 
-
 class ChatCardListview extends StatefulWidget {
   const ChatCardListview({super.key});
 
@@ -19,40 +18,51 @@ class ChatCardListview extends StatefulWidget {
 }
 
 class _ChatCardListviewState extends State<ChatCardListview> {
-  static List<ChatCardEntity> chatCardEntity=[];
+  static List<ChatCardEntity> chatCardEntity = [];
+  int delay=0;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
-        if(state is ChatCardSuccessState){
-          chatCardEntity=state.chatCardEntity;
+        if (state is ChatCardSuccessState) {
+          chatCardEntity = state.chatCardEntity;
         }
       },
       builder: (context, state) {
-       if(chatCardEntity.isNotEmpty){
+        if (chatCardEntity.isNotEmpty) {
           return Expanded(
-              child: FadeInUp(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
-                    itemBuilder: (context, index) =>  ChatCardItem(chatCardEntity: chatCardEntity[index],),
-                    separatorBuilder: (context, index) =>
-                    const SizedBox(
-                      height: 0,
-                    ),
-                    itemCount: chatCardEntity.length,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    delay=delay+150;
+                    return ChatCardItem(
+                      chatCardEntity: chatCardEntity[index],
+                      delay: delay,
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 0,
                   ),
+                  itemCount: chatCardEntity.length,
                 ),
               ));
-        }else if(state is ChatCardLoadingState || chatCardEntity.isEmpty ){
-        return Expanded(child: Center(child: LoadingAnimationWidget.staggeredDotsWave(
-          color: Colors.white,
-          size: 70,
-        ),));
-        }
-        else{
-        return const Expanded(child: Center(child: Text('No chats here yet',style: Styles.textStyle16,)));
+        } else if (state is ChatCardLoadingState || chatCardEntity.isEmpty) {
+          return Expanded(
+              child: Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.white,
+              size: 70,
+            ),
+          ));
+        } else {
+          return const Expanded(
+              child: Center(
+                  child: Text(
+            'No chats here yet',
+            style: Styles.textStyle16,
+          )));
         }
       },
     );

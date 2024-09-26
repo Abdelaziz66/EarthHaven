@@ -4,6 +4,7 @@ import 'package:earth_haven/features/news/presentation/pages/news.dart';
 import 'package:earth_haven/features/scan/presentation/pages/scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../news/presentation/pages/add_post.dart';
 import '../../../../profile/presentation/pages/profile.dart';
 part 'layout_state.dart';
 
@@ -13,9 +14,9 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   int currentNavigationBarIndex = 0;
   List<Widget> navigationBarScreens = [
-    const Dashboard(),
-    const News(),
     const Scan(),
+    const News(),
+    const AddPostScreen(),
     const Chat(),
     const Profile(),
   ];

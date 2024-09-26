@@ -41,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         cursorColor: KColors.primaryColor,
 
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400,color:KColors.thirdColor, ),
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 15),

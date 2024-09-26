@@ -69,60 +69,67 @@ class _PlantDetailsState extends State<PlantDetails> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                FadeInUp(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 0,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: FadeInUp(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomTextHeaderShape(
-                              title: '${widget.plantInfoEntity?.name}',
-                              subTitle: '${widget.plantInfoEntity?.probability}',
-                            ),
-                            CustomTextShape(
-                              title: 'Description',
-                              subTitle: '${widget.plantInfoEntity?.description}',
-                            ),
-                            CustomTextShape(
-                              title: 'commonUses',
-                              subTitle: '${widget.plantInfoEntity?.commonUses}',
-                            ),
-                            CustomTextShape(
-                              title: 'culturalSignificance',
-                              subTitle:
-                                  '${widget.plantInfoEntity?.culturalSignificance}',
-                            ),
-                            CustomTextShape(
-                              title: 'bestWatering',
-                              subTitle: '${widget.plantInfoEntity?.bestWatering}',
-                            ),
-                            CustomTextShape(
-                              title: 'bestSoilType',
-                              subTitle: '${widget.plantInfoEntity?.bestSoilType}',
-                            ),
-                            CustomTextShape(
-                              title: 'bestLightCondition',
-                              subTitle:
-                                  '${widget.plantInfoEntity?.bestLightCondition}',
-                            ),
-                            CustomTextShape(
-                              title: 'toxicity',
-                              subTitle: '${widget.plantInfoEntity?.toxicity}',
-                            ),
-                          ],
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.85,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 0,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 200),
+                          child: CustomTextHeaderShape(
+                            title: '${widget.plantInfoEntity?.name}',
+                            subTitle: '${widget.plantInfoEntity?.probability}',
+                          ),
                         ),
-                      ),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 400),
+
+                          child: CustomTextShape(
+                            title: 'Description',
+                            subTitle: '${widget.plantInfoEntity?.description}',
+                          ),
+                        ),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 600),
+
+                          child: CustomTextShape(
+                            title: 'commonUses',
+                            subTitle: '${widget.plantInfoEntity?.commonUses}',
+                          ),
+                        ),
+                        CustomTextShape(
+                          title: 'culturalSignificance',
+                          subTitle:
+                              '${widget.plantInfoEntity?.culturalSignificance}',
+                        ),
+                        CustomTextShape(
+                          title: 'bestWatering',
+                          subTitle: '${widget.plantInfoEntity?.bestWatering}',
+                        ),
+                        CustomTextShape(
+                          title: 'bestSoilType',
+                          subTitle: '${widget.plantInfoEntity?.bestSoilType}',
+                        ),
+                        CustomTextShape(
+                          title: 'bestLightCondition',
+                          subTitle:
+                              '${widget.plantInfoEntity?.bestLightCondition}',
+                        ),
+                        CustomTextShape(
+                          title: 'toxicity',
+                          subTitle: '${widget.plantInfoEntity?.toxicity}',
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -32,7 +32,7 @@ class _LoginBodyState extends State<LoginBody> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          showFloatingTopBanner(message: 'Login Success :)', context: context);
+          // showFloatingTopBanner(message: 'Login Success :)', context: context);
         loginSuccess(state, context);
         }
         if (state is LoginErrorState) {

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../manager/profile_cubit.dart';
 import '../widgets/profile_body.dart';
+import '../widgets/verify_account.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -14,8 +15,9 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProfileCubit(
-          getUserPostUseCase: GetUserPostUseCase(
-              profileRepo: getIt.get<ProfileRepoImpl>()))..getUserPost(),
+          getUserPostUseCase:
+              GetUserPostUseCase(profileRepo: getIt.get<ProfileRepoImpl>()))
+        ..getUserPost(),
       child: const ProfileBody(),
     );
   }

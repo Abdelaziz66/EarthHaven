@@ -28,12 +28,6 @@ class LayoutAppBar extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: () {
-                  GoRouter.of(context).push(AppRouter.kAddPostScreen);
-                },
-                icon: const Icon(Icons.add_photo_alternate_outlined,color: Colors.white,),
-              ),
-              IconButton(
-                onPressed: () {
                   showFloatingTopBanner(context: context, message: 'Coming Soon :)');
 
                 },

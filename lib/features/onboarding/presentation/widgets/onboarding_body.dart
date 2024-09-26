@@ -1,5 +1,7 @@
 
+import 'package:earth_haven/core/style/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../core/constants/constant.dart';
@@ -20,14 +22,14 @@ class _OnboardingBodyState extends State<OnboardingBody> {
   bool isLast = false;
   var smoothPageController = PageController();
   final List title = [
-    'Title',
-    'Title',
-    'Title',
+    'Take care of your plant',
+    'Making the planet breathe',
+    'Share your questions',
   ];
   final List subTitle = [
-    'subTitle',
-    'subTitle',
-    'subTitle',
+    'Learn more about your plant through AI.',
+    'by sharing your opinions and answers with others.',
+    'community to help you optimize your plant.',
   ];
   final List imageName = [
     'onboarding1.png',
@@ -61,7 +63,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Column(
                 children: [
                   SmoothPageIndicator(
@@ -76,15 +78,29 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                       ),
                       count: 3),
                   const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomButton(
-                      text: 'Next',
-                      onTap: () {
-                        _clickOnNext(context);
-                      },
-                      key: null,
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
+                        child: InkWell(
+                          onTap: (){
+                            _clickOnNext(context);
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: KColors.primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: FaIcon(FontAwesomeIcons.angleRight,color:  KColors.thirdColor,),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
