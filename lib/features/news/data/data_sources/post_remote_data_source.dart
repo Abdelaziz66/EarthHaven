@@ -1,48 +1,40 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:earth_haven/features/news/presentation/manager/news_cubit.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/constants/constant.dart';
+import '../../../../core/functions/get_likes.dart';
 import '../../domain/entities/post_entity.dart';
 import '../models/post_model.dart';
 
 abstract class PostRemoteDataSource {
-  Future<Stream<List<PostEntity>>> getPost();
+  Future<List<PostEntity>> getPost();
   Future<void> uploadPost({required PostEntity postEntity});
   Future<String> uploadImage({required File postImage});
+  Future<void> addLike({required String postId});
+  Future<void> removeLike({required String postId});
 }
 
 class PostRemoteDataSourceImpl extends PostRemoteDataSource {
-  // @override
-  // Future<Stream<List<PostEntity>>> getPost() async {
-  //   List<PostEntity> postEntity = [];
-  //   FirebaseFirestore.instance
-  //       .collection('posts')
-  //       .orderBy('date', descending: true)
-  //       .snapshots()
-  //       .listen((event) async {
-  //     postEntity = _getPostList(event);
-  //     PostSuccessState.set(postEntity: postEntity);
-  //   });
-  //   return postEntity;
-  // }
 
   @override
-  Future<Stream<List<PostEntity>>> getPost() async {
+  Future<List<PostEntity>> getPost() async {
     List<PostEntity> postEntity = [];
-    return FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('posts')
         .orderBy('date', descending: true)
-        .snapshots()
-        .map((snapshot) {
-      postEntity = _getPostList(snapshot);
-      PostSuccessState.set(postEntity: postEntity);
+        .get()
+        .then((value) async {
+      postEntity = _getPostList(value);
+      // setPosts(postEntity: postEntity);
+      postEntity=await getLikes(postEntity: postEntity);
 
-      // Convert the snapshot to a list of PostEntity
+
       return postEntity;
     });
+    return postEntity;
+
   }
 
   @override
@@ -87,4 +79,29 @@ class PostRemoteDataSourceImpl extends PostRemoteDataSource {
             }));
     return imageURL!;
   }
+
+  @override
+  Future<void> addLike({required String postId})async {
+
+    Map<String,dynamic> data = {
+      'postId':postId,
+      'uId':uId,
+      'like':true,
+    };
+
+    await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId).collection('likes').doc(uId)
+        .set(data);
+  }
+
+  @override
+  Future<void> removeLike({required String postId}) async{
+    await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId).collection('likes').doc(uId).delete();
+  }
+
+
+
 }

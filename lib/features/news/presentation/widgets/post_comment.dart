@@ -38,7 +38,7 @@ class _CommentState extends State<Comment> {
     );
     ChatCubit.get(context).sendMessage(chatInputModel: chatInputModel);
     commentController=TextEditingController();
-    showFloatingTopBanner(context: context, message: 'Reply Sending');
+    showFloatingTopBanner(context: context, message: 'Message Sent  :)');
   }
 
   @override

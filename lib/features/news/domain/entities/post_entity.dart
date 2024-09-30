@@ -7,6 +7,8 @@ class PostEntity {
   final String? tag;
   final String? postId;
   final String? date;
+  bool like=false;
+  int numberOfLike=0;
 
   PostEntity(
       {required this.userName,

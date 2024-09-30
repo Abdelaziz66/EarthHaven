@@ -14,11 +14,10 @@ class PostRepoImpl extends PostRepo {
   });
 
   @override
-  Future<Either<Failure, Stream<List<PostEntity>>>> getPost() async {
+  Future<Either<Failure, List<PostEntity>>> getPost() async {
     try {
-      Stream<List<PostEntity>> postEntity;
+      List<PostEntity> postEntity;
       postEntity = await postRemoteDataSource.getPost();
-      print(postEntity.length);
       return right(postEntity);
     } catch (e) {
       return left(ServerFailure(e.toString()));
@@ -42,6 +41,26 @@ class PostRepoImpl extends PostRepo {
       String imageURL;
       imageURL= await postRemoteDataSource.uploadImage(postImage: postImage);
       return right(imageURL);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addLike({required String postId})async {
+    try{
+      await postRemoteDataSource.addLike(postId: postId);
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeLike({required String postId})async {
+    try{
+      await postRemoteDataSource.removeLike(postId: postId);
+      return right(null);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }
