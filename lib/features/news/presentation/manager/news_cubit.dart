@@ -1,14 +1,12 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:earth_haven/core/functions/custom_snack_bar_message.dart';
 import 'package:earth_haven/features/news/domain/entities/post_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/constant.dart';
-import '../../../../core/errors/failure.dart';
+import '../../domain/use_cases/add_like.dart';
 import '../../domain/use_cases/get_post_usecase.dart';
+import '../../domain/use_cases/remove_like.dart';
 import '../../domain/use_cases/upload_image_usecase.dart';
 import '../../domain/use_cases/upload_post_usecase.dart';
 part 'news_state.dart';
@@ -17,7 +15,10 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit(
       {required this.uploadImageUseCase,
       required this.uploadPostUseCase,
-      required this.getPostUseCase})
+      required this.getPostUseCase,
+        required   this.removeLikeUseCase,
+        required   this.addLikeUseCase,
+      })
       : super(NewsInitial());
 
   static NewsCubit get(context)=>BlocProvider.of(context);
@@ -25,6 +26,8 @@ class NewsCubit extends Cubit<NewsState> {
   final GetPostUseCase getPostUseCase;
   final UploadPostUseCase uploadPostUseCase;
   final UploadImageUseCase uploadImageUseCase;
+  final RemoveLikeUseCase removeLikeUseCase;
+  final AddLikeUseCase addLikeUseCase;
 
   void getPost() async {
     emit(PostLoadingState());
@@ -32,13 +35,7 @@ class NewsCubit extends Cubit<NewsState> {
     result.fold((failure) {
       emit(PostErrorState(failure.toString()));
     }, (right) {
-      // PostSuccessState.set(postEntity: right);
-      print(right);
-      print(right.length);
-      print(right.length);
-      print(right.length);
-      print(right.length);
-      print(right.length);
+      PostSuccessState.set(postEntity: right);
       emit(PostSuccessState());
     });
   }
@@ -114,6 +111,59 @@ class NewsCubit extends Cubit<NewsState> {
         emit(UploadPostSuccessState());
       });
     });
+  }
+
+  void addLike({required String postId}) async {
+    for (int i = 0; i < PostSuccessState.postEntity.length; i++) {
+      if (PostSuccessState.postEntity[i]?.postId == postId) {
+        if (PostSuccessState.postEntity[i]!.like) {
+          break;
+        }
+        PostSuccessState.postEntity[i]?.like = true;
+        PostSuccessState.postEntity[i]?.numberOfLike++;
+        emit(ChangeLikeSuccessState());
+        break;
+      }
+    }
+
+    await addLikeCloud(postId: postId);
+  }
+
+  void removeLike({required String postId}) async {
+    for (int i = 0; i < PostSuccessState.postEntity.length; i++) {
+      if (PostSuccessState.postEntity[i]?.postId == postId) {
+        if (PostSuccessState.postEntity[i]!.like==false) {
+          break;
+        }
+        PostSuccessState.postEntity[i]?.like = false;
+        PostSuccessState.postEntity[i]?.numberOfLike--;
+        emit(ChangeLikeSuccessState());
+        break;
+      }
+    }
+    await removeLikeCloud(postId: postId);
+  }
+
+  Future<void> removeLikeCloud({required String postId}) async {
+    if (uId != null) {
+      var result = await removeLikeUseCase.call(postId);
+      result.fold((failure) {
+        emit(RemoveLikeErrorState(failure.message));
+      }, (r) {
+        emit(RemoveLikeSuccessState());
+      });
+    }
+  }
+
+  Future<void> addLikeCloud({required String postId}) async {
+      var result = await addLikeUseCase.call(postId);
+
+      result.fold((failure) {
+        emit(AddLikeErrorState(failure.message));
+      }, (r) {
+        emit(AddLikeSuccessState());
+      });
+
   }
 
   var picker = ImagePicker();

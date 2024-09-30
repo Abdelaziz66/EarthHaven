@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-class PostAction extends StatelessWidget {
-  const PostAction({
-    super.key,
-  });
 
+import '../../domain/entities/post_entity.dart';
+import '../manager/news_cubit.dart';
+class PostAction extends StatefulWidget {
+  const PostAction({
+    super.key, required this.postEntity,
+  });
+ final PostEntity  postEntity;
+
+  @override
+  State<PostAction> createState() => _PostActionState();
+}
+
+class _PostActionState extends State<PostAction> {
+  late bool like=widget.postEntity.like;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,25 +23,29 @@ class PostAction extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              // if (likemodel.uIds!.contains('${postmap.uid}')) {
-              //   App_cubit.get(context).unlikepost_Function(
-              //       postId: postId, index: index);
-              // } else {
-              //   App_cubit.get(context).likepost_Function(
-              //       postId: postId, index: index);
-              // }
+              if(like){
+                setState(() {
+                  like = !like;
+                });
+                NewsCubit.get(context).removeLike(postId: widget.postEntity.postId!);
+              }else{
+                setState(() {
+                  like = !like;
+                });
+                NewsCubit.get(context).addLike(postId: widget.postEntity.postId!);
+              }
             },
             icon: FaIcon(
               FontAwesomeIcons.heart,
               size: 25,
               // color: App_cubit.get(context).likeId_list!.contains(App_cubit.get(context).model?.uid) ?Colors.greenAccent:Colors.grey[200],
-              color: true
+              color: like
                   ? Colors.greenAccent
                   : Colors.grey[200],
             ),
           ),
           Text(
-            '69',
+            '${  widget.postEntity.numberOfLike}',
             style: TextStyle(
               color: Colors.grey[300],
             ),
@@ -76,5 +90,6 @@ class PostAction extends StatelessWidget {
         ],
       ),
     );
+
   }
 }

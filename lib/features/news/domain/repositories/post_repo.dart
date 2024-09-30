@@ -7,7 +7,9 @@ import '../entities/post_entity.dart';
 
 
 abstract class PostRepo{
-  Future<Either<Failure, Stream<List<PostEntity>>>> getPost();
+  Future<Either<Failure, List<PostEntity>>> getPost();
   Future<Either<Failure,void>> uploadPost({required PostEntity postEntity});
   Future<Either<Failure,String>> uploadImage({required File postImage});
+  Future<Either<Failure, void>>addLike({required String postId});
+  Future<Either<Failure, void>>removeLike({required String postId});
 }

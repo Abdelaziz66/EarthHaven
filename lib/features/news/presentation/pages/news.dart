@@ -2,7 +2,9 @@ import 'package:earth_haven/core/functions/custom_snack_bar_message.dart';
 import 'package:earth_haven/core/functions/setup_service_locator.dart';
 import 'package:earth_haven/features/news/data/data_sources/post_remote_data_source.dart';
 import 'package:earth_haven/features/news/data/repositories/post_repo_impl.dart';
+import 'package:earth_haven/features/news/domain/use_cases/add_like.dart';
 import 'package:earth_haven/features/news/domain/use_cases/get_post_usecase.dart';
+import 'package:earth_haven/features/news/domain/use_cases/remove_like.dart';
 import 'package:earth_haven/features/news/domain/use_cases/upload_post_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +38,9 @@ class News extends StatelessWidget {
               UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
           uploadImageUseCase:
               UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
+          removeLikeUseCase:
+              RemoveLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
+          addLikeUseCase: AddLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
         )..getPost(),
         child: const NewsBody(),
       ),

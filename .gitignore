@@ -44,3 +44,6 @@ app.*.map.json
 /lib/core/widgets/
 /lib/core/functions/
 /lib/features/chat/presentation/
+/lib/firebase_options.dart
+/assets/
+

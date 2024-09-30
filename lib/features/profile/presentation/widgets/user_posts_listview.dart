@@ -35,16 +35,19 @@ class _UserPostListviewState extends State<UserPostListview> {
         if (postEntity.isNotEmpty) {
           return Expanded(
             child: FadeInUp(
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => UserPostItem(
-                  userPostEntity: postEntity[index]!,
-                ),
-                itemCount: PostSuccessState.postEntity.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => UserPostItem(
+                    userPostEntity: postEntity[index]!,
+                  ),
+                  itemCount: PostSuccessState.postEntity.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5
+                  ),
                 ),
               ),
             ),

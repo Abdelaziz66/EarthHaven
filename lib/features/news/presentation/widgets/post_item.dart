@@ -46,7 +46,7 @@ class _PostItemState extends State<PostItem> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const PostAction(),
+                   PostAction(postEntity:widget.postEntity),
                   const SizedBox(
                     height: 10,
                   ),

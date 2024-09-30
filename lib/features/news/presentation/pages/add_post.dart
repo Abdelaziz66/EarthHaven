@@ -11,7 +11,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../../../../core/functions/setup_service_locator.dart';
 import '../../data/repositories/post_repo_impl.dart';
+import '../../domain/use_cases/add_like.dart';
 import '../../domain/use_cases/get_post_usecase.dart';
+import '../../domain/use_cases/remove_like.dart';
 import '../../domain/use_cases/upload_post_usecase.dart';
 import '../manager/news_cubit.dart';
 import '../widgets/add_post_widget/add_image_post.dart';
@@ -34,9 +36,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
       create: (context) => NewsCubit(
         getPostUseCase: GetPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
         uploadPostUseCase:
-            UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
+        UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
         uploadImageUseCase:
-            UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
+        UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
+        removeLikeUseCase:
+        RemoveLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
+        addLikeUseCase: AddLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
       ),
       child: BlocConsumer<NewsCubit, NewsState>(
         listener: (context, state) {

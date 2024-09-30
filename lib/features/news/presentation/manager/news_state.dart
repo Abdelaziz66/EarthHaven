@@ -38,3 +38,16 @@ class ImagePickedSuccessState extends NewsState {
   ImagePickedSuccessState({required this.postImage});
 
 }
+
+
+class ChangeLikeSuccessState extends NewsState {}
+class AddLikeSuccessState extends NewsState {}
+class RemoveLikeSuccessState extends NewsState {}
+class RemoveLikeErrorState extends NewsState {
+  final String errMessage;
+  RemoveLikeErrorState(this.errMessage);
+}
+class AddLikeErrorState extends NewsState {
+  final String errMessage;
+  AddLikeErrorState(this.errMessage);
+}
