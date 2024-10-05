@@ -56,7 +56,7 @@ class _PostActionState extends State<PostAction> {
           ),
           FaIcon(
             FontAwesomeIcons.comment,
-            size: 25,
+            size: 20,
             color: Colors.grey[200],
           ),
 
@@ -66,7 +66,7 @@ class _PostActionState extends State<PostAction> {
 
           FaIcon(
             FontAwesomeIcons.angleUp,
-            size: 25,
+            size: 20,
             color: Colors.grey[200],
           ),
 
@@ -80,7 +80,7 @@ class _PostActionState extends State<PostAction> {
 
           FaIcon(
             FontAwesomeIcons.bookmark,
-            size: 25,
+            size: 20,
             color: Colors.grey[200],
           ),
 

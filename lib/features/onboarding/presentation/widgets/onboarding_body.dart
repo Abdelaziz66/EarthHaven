@@ -8,7 +8,6 @@ import '../../../../core/constants/constant.dart';
 import '../../../../core/functions/hive_function.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/widgets/background.dart';
-import '../../../../core/widgets/custom_button.dart';
 import 'onboarding_item.dart';
 
 class OnboardingBody extends StatefulWidget {
@@ -32,9 +31,9 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     'community to help you optimize your plant.',
   ];
   final List imageName = [
-    'onboarding1.png',
-    'onboarding2.png',
-    'onboarding3.png',
+    'assets/onboarding/o1.png',
+    'assets/onboarding/o2.png',
+    'assets/onboarding/sunset.png',
   ];
 
   @override

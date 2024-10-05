@@ -1,3 +1,4 @@
+import 'package:earth_haven/features/chat/presentation/manager/chat_cubit.dart';
 import 'package:earth_haven/features/onboarding/presentation/pages/login_or_register.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,7 +9,6 @@ import '../../features/login/presentation/pages/login.dart';
 import '../../features/news/presentation/pages/add_post.dart';
 import '../../features/onboarding/presentation/pages/onboarding.dart';
 import '../../features/register/presentation/pages/register.dart';
-import '../../features/scan/data/models/plant_model.dart';
 import '../../features/scan/domain/entities/plant_entity.dart';
 import '../../features/scan/presentation/pages/plant_details.dart';
 import '../constants/constant.dart';
@@ -58,16 +58,20 @@ abstract class AppRouter {
         builder: (context, state) => const AddPostScreen(),
       ),
       GoRoute(
-        path: kChatPage,
-        builder: (context, state) => ChatPage(
-          chatCardEntity: state.extra as ChatCardEntity, // Cast the extra parameter to the correct type
-        ),
-      ),
-      GoRoute(
         path: kPlantDetails,
         builder: (context, state) => PlantDetails(
           plantInfoEntity: state.extra as PlantInfoEntity, // Cast the extra parameter to the correct type
         ),
+      ),
+      GoRoute(
+        path: kChatPage,
+        builder: (context, state) {
+          final Map<String, dynamic> extraData = state.extra as Map<String, dynamic>;
+          final ChatCubit cubit = extraData['cubit'] as ChatCubit;
+          final ChatCardEntity chatCardEntity = extraData['chatCardEntity'] as ChatCardEntity;
+
+          return ChatPage( chatCardEntity: chatCardEntity,cubit: cubit);
+        },
       ),
     ],
   );

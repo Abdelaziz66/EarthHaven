@@ -8,6 +8,7 @@ class PostSuccessState extends NewsState {
   static List<PostEntity?> postEntity=[];
 
   static set({required List<PostEntity?> postEntity}) {
+    PostSuccessState.postEntity=[];
     PostSuccessState.postEntity = postEntity;
   }
 }

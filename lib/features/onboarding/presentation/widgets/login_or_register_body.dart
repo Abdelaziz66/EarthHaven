@@ -1,27 +1,31 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/constant.dart';
-import '../../../../core/functions/hive_function.dart';
 import '../../../../core/style/textStyles.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/widgets/background.dart';
+import '../../../../core/widgets/custom_button.dart';
 
 class LoginOrRegisterBody extends StatelessWidget {
   const LoginOrRegisterBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  BackGround(
+    return  const BackGround(
         widget: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const _Image(),
-            const _Hello(),
-            BounceInDown(child: const _CustomButton()),
+            _Image(),
+            _Hello(),
+            StyledButton(),
+            SizedBox(
+              height: 30,
+            ),
+            // BounceInDown(child: const _CustomButton()),
           ],
         ),
       ),
@@ -29,69 +33,8 @@ class LoginOrRegisterBody extends StatelessWidget {
   }
 }
 
-class _CustomButton extends StatelessWidget {
-  const _CustomButton();
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width < 600
-          ? MediaQuery.of(context).size.width
-          : 600,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 40),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.white,
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white24,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    GoRouter.of(context).push(AppRouter.kRegister);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(20),
-                      color: Colors.white.withOpacity(.4),
-                    ),
-                    child: const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(30.0),
-                        child: Text('Register', style: Styles.textStyle20),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    GoRouter.of(context).push(AppRouter.kLogin);
-                  },
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text('Login', style: Styles.textStyle20),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+
 
 class _Hello extends StatelessWidget {
   const _Hello();
@@ -137,7 +80,7 @@ class _Image extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: FadeInDown(
               child: Image.asset(
-                'assets/onboarding/onboarding2.png',
+                'assets/onboarding/o4.png',
               ),
             ),
           ),

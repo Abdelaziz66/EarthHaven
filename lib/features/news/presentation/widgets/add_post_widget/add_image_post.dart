@@ -6,6 +6,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/style/colors.dart';
 import '../../../../../core/widgets/glass_box.dart';
@@ -73,7 +74,7 @@ class AddImagePost extends StatelessWidget {
                           child: IconButton(
                               onPressed: () {
                                 NewsCubit.get(context)
-                                    .pickImage();
+                                    .pickImage(imageSource: ImageSource.gallery);
                               },
                               icon: FaIcon(
                                 FontAwesomeIcons.image,
@@ -82,7 +83,7 @@ class AddImagePost extends StatelessWidget {
                     ),
                   ),
                   FadeInLeft(
-                    delay: Duration(milliseconds: 200),
+                    delay: const Duration(milliseconds: 200),
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
@@ -93,7 +94,7 @@ class AddImagePost extends StatelessWidget {
                           child: IconButton(
                               onPressed: () {
                                 NewsCubit.get(context)
-                                    .pickImage();
+                                    .pickImage(imageSource: ImageSource.camera);
                               },
                               icon: Icon(
                                 Icons.camera_alt,

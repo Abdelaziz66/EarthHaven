@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earth_haven/features/news/presentation/widgets/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,12 +28,8 @@ class PostHeader extends StatelessWidget {
               ]),
               child: CircleAvatar(
                 radius: 25,
-                backgroundImage: NetworkImage(
-                  widget.postEntity.userProfileImage == '' ||
-                          widget.postEntity.userProfileImage == null
-                      ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-                      : widget.postEntity.userProfileImage!,
-                ),
+                backgroundImage: CachedNetworkImageProvider('${widget.postEntity.userProfileImage}',),
+
               )),
           const SizedBox(
             width: 15,

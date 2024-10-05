@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/functions/custom_snack_bar_message.dart';
 import '../../../../core/functions/setup_service_locator.dart';
+import '../../../../core/widgets/custom_title.dart';
 import '../../data/repositories/post_repo_impl.dart';
 import '../../domain/use_cases/add_like.dart';
 import '../../domain/use_cases/get_post_usecase.dart';
@@ -36,11 +37,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
       create: (context) => NewsCubit(
         getPostUseCase: GetPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
         uploadPostUseCase:
-        UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
+            UploadPostUseCase(postRepo: getIt.get<PostRepoImpl>()),
         uploadImageUseCase:
-        UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
+            UploadImageUseCase(postRepo: getIt.get<PostRepoImpl>()),
         removeLikeUseCase:
-        RemoveLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
+            RemoveLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
         addLikeUseCase: AddLikeUseCase(postRepo: getIt.get<PostRepoImpl>()),
       ),
       child: BlocConsumer<NewsCubit, NewsState>(
@@ -53,7 +54,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           }
         },
         builder: (context, state) {
-          return  FadeInUp(
+          return FadeInUp(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,16 +66,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding:
-                          const EdgeInsets.only(left: 15.0),
+                          padding: const EdgeInsets.only(left: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
-
                               SizedBox(
-                                width: MediaQuery.of(context).size.width*.45,
+                                width: MediaQuery.of(context).size.width * .45,
                                 child: Text(
                                   'What is in your mind ?',
                                   style: TextStyle(
@@ -85,16 +83,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height:MediaQuery.of(context).size.width*.4,
-                                width: MediaQuery.of(context).size.width*.4,
-
+                                height: MediaQuery.of(context).size.width * .4,
+                                width: MediaQuery.of(context).size.width * .4,
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       image: const DecorationImage(
-                                        image: AssetImage('assets/images/plant3.png'),
+                                        image: AssetImage(
+                                            'assets/images/plant3.png'),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -108,8 +106,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           height: 25,
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: CustomTextFormField(
                               controller: captionController,
                               keyboardType: TextInputType.text,
@@ -123,8 +120,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           height: 15,
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: CustomTextFormField(
                               controller: tagsController,
                               keyboardType: TextInputType.text,
@@ -137,13 +133,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        AddImagePost(postImage: postImage, state: state, captionController: captionController, tagsController: tagsController,),
-
+                        AddImagePost(
+                          postImage: postImage,
+                          state: state,
+                          captionController: captionController,
+                          tagsController: tagsController,
+                        ),
                       ],
                     ),
                   ),
                 ),
-
               ],
             ),
           );
@@ -152,4 +151,3 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 }
-

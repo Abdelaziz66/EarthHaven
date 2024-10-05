@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/constant.dart';
 import '../../../../core/style/textStyles.dart';
@@ -140,12 +141,7 @@ class _ProfileImage extends StatelessWidget {
       ]),
       child: CircleAvatar(
         radius: 45,
-        backgroundImage:
-        NetworkImage(loginEntity?.profileImage==
-            ''
-            ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-            : loginEntity?.profileImage ??
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',),
+        backgroundImage: CachedNetworkImageProvider('${loginEntity!.profileImage}',),
       ),
     );
   }
