@@ -15,20 +15,15 @@ class PostTag extends StatelessWidget {
         condition: widget.postEntity.tag != '',
         builder: (context) => Padding(
           padding:
-          const EdgeInsets.symmetric(horizontal: 5.0),
+          const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5),
           child: Row(
             children: [
-              MaterialButton(
-                onPressed: () {},
-                minWidth: 1,
-                padding: EdgeInsets.zero,
-                child:  Text(
-                 widget.postEntity.tag??'',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
+              Text(
+               widget.postEntity.tag??'',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.green,
                 ),
               ),
             ],

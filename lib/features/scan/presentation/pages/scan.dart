@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:earth_haven/core/functions/custom_snack_bar_message.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:earth_haven/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/functions/setup_service_locator.dart';
 import '../../data/repositories/scan_plant_repo_impl.dart';
@@ -38,7 +39,6 @@ class _ScanState extends State<Scan> {
         listener: (context, state) {
           if (state is CheckPlantSuccessState) {
             plantInfoEntity = state.plantInfoEntity;
-            showSnackBar(context: context, message: 'CheckPlantSuccessState');
             GoRouter.of(context)
                 .push(AppRouter.kPlantDetails, extra: plantInfoEntity);
           }
@@ -53,7 +53,16 @@ class _ScanState extends State<Scan> {
                 const CustomTextHeaderShape(),
                 const SelectFrom(),
                 ImageOrCamera(postImage: postImage, state: state,),
-                GetReport(plantInfoEntity: plantInfoEntity),
+                ConditionalBuilder(
+                  condition: state is CheckPlantLoadingState,
+                  builder: (context) =>  LoadingAnimationWidget.staggeredDotsWave(
+                    color: Colors.white,
+                    size: 70,
+                  ),
+                  fallback:(context) => GetReport(plantInfoEntity: plantInfoEntity),
+                ),
+
+
               ],
             ),
           );

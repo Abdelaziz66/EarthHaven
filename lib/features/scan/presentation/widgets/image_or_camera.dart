@@ -34,7 +34,7 @@ class ImageOrCamera extends StatelessWidget {
                 ),
               ),
             ),
-            color: Colors.white10,
+            color: Colors.blueGrey.withOpacity(.1),
             borderRadius: 25,
             x: 100,
             y: 100,

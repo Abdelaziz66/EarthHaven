@@ -21,12 +21,12 @@ class PostCaption extends StatelessWidget {
               Expanded(
                 child: Text(
                 widget.postEntity.caption??'',
-                  maxLines: 4,
+                  maxLines: 5,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
-                    color: Colors.grey[300],
+                    color: Colors.white70,
                   ),
                 ),
               ),

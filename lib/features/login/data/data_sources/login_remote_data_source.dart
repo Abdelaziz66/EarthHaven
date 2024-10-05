@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/functions/user_data.dart';
 import '../../../../core/utils/google_auth.dart';
-import '../../../register/data/models/register_model.dart';
 import '../../domain/entities/login_entity.dart';
 import '../models/login_model.dart';
 
@@ -34,35 +33,11 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
       User user = onValue.user;
       await newAccount(onValue, user);
       loginEntity = await getUserDataFunction(uid: onValue.user.uid);
-      print('----------------------------------------------------');
-      print('----------------------------------------------------');
-      print('----------------------------------------------------');
 
-      print(loginEntity?.name!);
-      print(loginEntity?.name!);
-      print(loginEntity?.name!);
-      print(loginEntity?.name!);
-      print(loginEntity?.name!);
-      print(loginEntity?.name!);
-      print('----------------------------------------------------');
-      print('----------------------------------------------------');
-      print('----------------------------------------------------');
 
       return loginEntity!;
     });
-    print('----------------------------------------------------');
-    print('----------------------------------------------------');
-    print('----------------------------------------------------');
 
-    print(loginEntity?.name!);
-    print(loginEntity?.name!);
-    print(loginEntity?.name!);
-    print(loginEntity?.name!);
-    print(loginEntity?.name!);
-    print(loginEntity?.name!);
-    print('----------------------------------------------------');
-    print('----------------------------------------------------');
-    print('----------------------------------------------------');
 
     return loginEntity!;
   }

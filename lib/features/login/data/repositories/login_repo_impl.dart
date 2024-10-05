@@ -30,7 +30,7 @@ class LoginRepoImpl extends LoginRepo{
       return left(ServerFailure(e.toString()));
     }
   }
- 
 
-  
+
+
 }

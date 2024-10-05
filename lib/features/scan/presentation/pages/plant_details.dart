@@ -25,9 +25,17 @@ class _PlantDetailsState extends State<PlantDetails> {
           SliverAppBar(
             backgroundColor: Colors.black,
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
-            leading:  Padding(
-              padding: const EdgeInsets.only(left: 20.0,top: 10),
-              child: IconButton(icon: const FaIcon(FontAwesomeIcons.angleLeft,size: 30,), onPressed: () { GoRouter.of(context).pop(); },),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 10),
+              child: IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.angleLeft,
+                  size: 30,
+                ),
+                onPressed: () {
+                  GoRouter.of(context).pop();
+                },
+              ),
             ),
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -49,19 +57,25 @@ class _PlantDetailsState extends State<PlantDetails> {
                 duration: const Duration(milliseconds: 500),
                 child: Transform.translate(
                   offset: const Offset(0, 1),
-                  child: GlassBoxWithOnlyTopBorder(widget: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: Container(
-                        height: 8,
-                        width: 75,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white54,
+                  child: GlassBoxWithOnlyTopBorder(
+                      widget: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Center(
+                          child: Container(
+                            height: 8,
+                            width: 75,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white54,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ), color: Colors.black54, borderRadius: 30, x: 5, y: 5, border: false),
+                      color: Colors.black54,
+                      borderRadius: 30,
+                      x: 5,
+                      y: 5,
+                      border: false),
                 ),
               ),
             ),
@@ -93,7 +107,6 @@ class _PlantDetailsState extends State<PlantDetails> {
                         ),
                         FadeInUp(
                           delay: const Duration(milliseconds: 400),
-
                           child: CustomTextShape(
                             title: 'Description',
                             subTitle: '${widget.plantInfoEntity?.description}',
@@ -101,7 +114,6 @@ class _PlantDetailsState extends State<PlantDetails> {
                         ),
                         FadeInUp(
                           delay: const Duration(milliseconds: 600),
-
                           child: CustomTextShape(
                             title: 'commonUses',
                             subTitle: '${widget.plantInfoEntity?.commonUses}',
@@ -218,21 +230,28 @@ class CustomTextHeaderShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return FadeInUp(
       child: Padding(
-        padding: const EdgeInsets.only(left: 15.0, bottom: 10,top: 30,right: 15),
+        padding:
+            const EdgeInsets.only(left: 15.0, bottom: 10, top: 30, right: 15),
         child: GlassBoxWithCustomBorder(
             widget: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      const FaIcon(FontAwesomeIcons.seedling,color: Colors.white,size: 20,),
-                      const SizedBox(width: 15,),
+                      const FaIcon(
+                        FontAwesomeIcons.seedling,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
                       Text(
                         title,
                         style: Styles.textStyle18,
@@ -244,8 +263,14 @@ class CustomTextHeaderShape extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const FaIcon(FontAwesomeIcons.wandMagicSparkles,color: Colors.white70,size: 18,),
-                      const SizedBox(width: 15,),
+                      const FaIcon(
+                        FontAwesomeIcons.wandMagicSparkles,
+                        color: Colors.white70,
+                        size: 18,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
                       Text(
                         subTitle,
                         style: Styles.textStyle16,

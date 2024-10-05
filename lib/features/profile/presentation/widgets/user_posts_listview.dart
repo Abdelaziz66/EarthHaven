@@ -27,7 +27,7 @@ class _UserPostListviewState extends State<UserPostListview> {
         postEntity=PostSuccessState.postEntity;
         if(FirebaseAuth.instance.currentUser?.emailVerified ==
             true){
-          verifyNotify(context);
+          Future.delayed(const Duration(seconds: 5),() => verifyNotify(context),) ;
         }
 
       },

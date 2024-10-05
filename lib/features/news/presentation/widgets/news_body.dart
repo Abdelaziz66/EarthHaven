@@ -1,6 +1,8 @@
 import 'package:earth_haven/features/news/presentation/widgets/post_listview.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_title.dart';
+
 class NewsBody extends StatelessWidget {
   const NewsBody({super.key});
 
@@ -9,7 +11,6 @@ class NewsBody extends StatelessWidget {
     return const Column(
       children: [
         PostListview(),
-
       ],
     );
   }
