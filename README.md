@@ -6,6 +6,9 @@ Earth Heaven
 - Users can react to posts and send replies.
 - User can chat and send messages to each other.
 
+🔗 check the link to see the full video in Linkedin 
+[Linkedin Post](https://www.linkedin.com/posts/abdelaziz-elsayed-aab278252_flutter-flutterdev-mobiledevelopment-activity-7248357169065062400-WW3n?utm_source=share&utm_medium=member_desktop)
+
 ![poster](./readme/image.png)
 
 
