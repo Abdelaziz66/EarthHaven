@@ -6,6 +6,6 @@ Protecting the environment and plant App - using “API & Firebase”
 - Users can react to posts and send replies.
 - User can chat and send messages to each other.
 
-![Flutter Logo](https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png)
+![poster](./readme/image.png)
 
 
